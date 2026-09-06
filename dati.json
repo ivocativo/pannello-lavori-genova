@@ -1,60 +1,61 @@
 {
- "aggiornato": "2026-09-06T19:22:36Z",
- "aggiornato_it": "06/09/2026 alle 19:22",
- "totale": 299,
- "n_principali": 66,
- "n_marginali": 233,
- "nuovi": 3,
- "n_privati": 59,
+ "aggiornato": "2026-09-06T20:20:43Z",
+ "aggiornato_it": "06/09/2026 alle 20:20",
+ "totale": 268,
+ "n_principali": 62,
+ "n_marginali": 206,
+ "nuovi": 1,
+ "n_privati": 55,
  "n_pubblici": 7,
  "n_scadenza": 3,
- "esclusi": 29,
+ "esclusi": 11,
  "motivi_esclusione": {
-  "lavoro su turni": 12,
-  "stage o tirocinio": 17
+  "stage o tirocinio": 9,
+  "lavoro su turni": 2
  },
  "fonti": [
   {
    "fonte": "MSC Crociere",
    "ok": true,
    "n": 14,
-   "secondi": 0.4
+   "secondi": 0.7
   },
   {
    "fonte": "InPA - concorsi pubblici",
    "ok": true,
    "n": 26,
-   "secondi": 0.5
+   "secondi": 1.9
   },
   {
    "fonte": "RINA",
    "ok": true,
    "n": 46,
-   "secondi": 0.6
+   "secondi": 2.7
   },
   {
    "fonte": "Costa Crociere",
    "ok": true,
    "n": 22,
-   "secondi": 2.2
+   "secondi": 3.8
   },
   {
    "fonte": "Leonardo",
    "ok": true,
    "n": 11,
-   "secondi": 3.0
-  },
-  {
-   "fonte": "Formazione Lavoro Regione Liguria",
-   "ok": true,
-   "n": 56,
-   "secondi": 11.1
+   "secondi": 4.0
   },
   {
    "fonte": "Adzuna",
    "ok": true,
-   "n": 196,
-   "secondi": 17.5
+   "n": 199,
+   "secondi": 8.5
+  },
+  {
+   "fonte": "Formazione Lavoro Regione Liguria",
+   "ok": false,
+   "n": 0,
+   "errore": "URLError: <urlopen error timed out>",
+   "secondi": 41.2
   }
  ],
  "annunci": [
@@ -123,43 +124,13 @@
    "marginale": false
   },
   {
-   "id": "adzuna-5871902052",
-   "titolo": "Business Analyst",
-   "ente": "Hays",
-   "luogo": "Genova, Provincia di Genova",
-   "settore": "privato",
-   "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/details/5871902052?utm_medium=api&utm_source=4153f7fc",
-   "pubblicato": "2026-09-05",
-   "scadenza": null,
-   "descrizione": "La tua nuova azienda e il tuo nuovo ruolo Per una consolidata realtà internazionale specializzata in soluzioni digitali per la Logistica, i Trasporti e la Supply Chain, siamo alla ricerca di un Business Analyst da inserire all’interno del team dedicato ai progetti di trasformazione digitale. La risorsa avrà un ruolo centrale nell’analisi dei processi aziendali e nella raccolta dei requisiti funzionali, collaborando con clienti, stakeholder e team tecnici per definire e implementare soluzioni in…",
-   "punteggio": 79,
-   "dettaglio": {
-    "ambito": "Analista funzionale / Business Analyst",
-    "pro": [
-     "analista funzionale / business analyst",
-     "e' esattamente il ruolo che ricopre oggi",
-     "competenze in comune: analisi dei requisiti, stakeholder"
-    ],
-    "contro": [],
-    "contratto": "non indicato",
-    "remoto": false
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
-   "marginale": false
-  },
-  {
    "id": "adzuna-5834571646",
    "titolo": "Business analyst",
    "ente": "agap2 Italia",
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5834571646?se=ltXlUSiq8RGakLND1OBtFQ&utm_medium=api&utm_source=4153f7fc&v=23E3722B46B55DBF4C440D1D6406CBEDD8E2EA88",
+   "url": "https://www.adzuna.it/land/ad/5834571646?se=_iP6bzCq8RGE5dUoA_xYmA&utm_medium=api&utm_source=4153f7fc&v=23E3722B46B55DBF4C440D1D6406CBEDD8E2EA88",
    "pubblicato": "2026-08-09",
    "scadenza": null,
    "descrizione": "Business Analyst – Digital Payments Ricerchiamo un Business Analyst con esperienza nei sistemi di pagamento digitale, nell'analisi funzionale e nell'integrazione di piattaforme e servizi di pagamento. Il tuo ruolo Analizzerai i requisiti di business e li tradurrai in specifiche funzionali per soluzioni di Digital Payments. Collaborerai con stakeholder, team di sviluppo, architetti software e fornitori esterni durante tutte le fasi progettuali. Supporterai l'evoluzione di piattaforme di pagament…",
@@ -222,7 +193,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5871992412?se=tsIxUyiq8RG1B8ohlkNPrw&utm_medium=api&utm_source=4153f7fc&v=89F7FA209331780B4D82A82756D79E78DF0A48DB",
+   "url": "https://www.adzuna.it/land/ad/5871992412?se=yrKPcDCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=89F7FA209331780B4D82A82756D79E78DF0A48DB",
    "pubblicato": "2026-09-05",
    "scadenza": null,
    "descrizione": "La tua nuova azienda e il tuo nuovo ruolo Per una realtà italiana specializzata nella progettazione e nell’integrazione di soluzioni tecnologiche avanzate per il mondo Enterprise, siamo alla ricerca di un Technical Project Manager - Infrastructure da inserire all’interno del team dedicato alla gestione di progetti infrastrutturali complessi. La risorsa avrà la responsabilità di coordinare progetti in ambito IT Infrastructure, fungendo da punto di riferimento tra clienti, team tecnici e stakehol…",
@@ -312,7 +283,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5859657950?se=tsIxUyiq8RG1B8ohlkNPrw&utm_medium=api&utm_source=4153f7fc&v=70B63BB42125C137B9364AADF4FB0FD968653B80",
+   "url": "https://www.adzuna.it/land/ad/5859657950?se=yrKPcDCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=70B63BB42125C137B9364AADF4FB0FD968653B80",
    "pubblicato": "2026-08-28",
    "scadenza": null,
    "descrizione": "Empacta ricerca per azienda cliente un/una Project Manager – Progetti Digitali da inserire con assunzione diretta presso la sede di Genova . La risorsa sarà responsabile della gestione e del coordinamento di iniziative legate allo sviluppo, all'implementazione e all'evoluzione di soluzioni software a supporto dei processi aziendali , collaborando con stakeholder interni ed esterni e con team multidisciplinari per assicurare il rispetto di tempi, priorità e obiettivi definiti. Responsabilità pri…",
@@ -362,37 +333,6 @@
     "remoto": false
    },
    "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": false
-  },
-  {
-   "id": "liguria-63996",
-   "titolo": "impiegat* per lavoro di segreteria / traduzioni e assistenza progetti esteri",
-   "ente": "Azienda non indicata",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-09-04",
-   "scadenza": "2026-09-18",
-   "descrizione": "Azienda settore consulenza tecnica settore portuale – trading export in Genova centro cerca 1 impiegat* per lavoro di segreteria / traduzioni e assistenza di nuovi progetti esteri. Essenziale buona conoscenza lingua inglese. Orario di lavoro full time lunedì - venerdì 8.30 - 17.00 con mezz'ora di pausa pranzo. Si offre iniziale tirocinio con rimborso spese con prospettiva di contratto di apprendistato. Per candidarsi: tramite SPID o CIE direttamente da sito web oppure via email a: federica.campi@regione.liguria.it",
-   "punteggio": 75,
-   "dettaglio": {
-    "ambito": "Amministrativo e organizzativo",
-    "pro": [
-     "amministrativo e organizzativo",
-     "competenze in comune: inglese",
-     "richiede lingue straniere",
-     "apprendistato"
-    ],
-    "contro": [],
-    "contratto": "apprendistato",
-    "remoto": false
-   },
-   "contratto": "apprendistato",
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
@@ -523,13 +463,42 @@
    "marginale": false
   },
   {
+   "id": "adzuna-5873278164",
+   "titolo": "Project Manager",
+   "ente": "Consulenteideale",
+   "luogo": "Genova, Provincia di Genova",
+   "settore": "privato",
+   "fonte": "Adzuna",
+   "url": "https://www.adzuna.it/land/ad/5873278164?se=yrKPcDCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=8993125FC685CD4B481986CB80196947CE2916A7",
+   "pubblicato": "2026-09-06",
+   "scadenza": null,
+   "descrizione": "Entra a far parte del Team di Consulente Ideale! Hai grandi doti di comunicazione? Hai bisogno di incrementare i tuoi Clienti? Vuoi un Partner Affidabile e Concreto? Stiamo cercando proprio Te! Azienda leader in Italia, siamo uno dei più grandi ed importanti Marketplace di servizi offerti dai consulenti quali commercialisti, avvocati, esperti contabili, consulenti del lavoro, consulenti aziendali, consulenti fiscali, consulenti finanziari, e tanti altri consulenti. Grazie alla continua e costan…",
+   "punteggio": 73,
+   "dettaglio": {
+    "ambito": "Project management / PMO",
+    "pro": [
+     "project management / pmo",
+     "e' esattamente il ruolo che ricopre oggi"
+    ],
+    "contro": [],
+    "contratto": "non indicato",
+    "remoto": false
+   },
+   "contratto": "non indicato",
+   "remoto": false,
+   "secondario": false,
+   "visto_la_prima_volta": "2026-09-06",
+   "nuovo": true,
+   "marginale": false
+  },
+  {
    "id": "adzuna-5862424829",
    "titolo": "PROJECT MANAGER - CANTIERI NAVALI NUOVE COSTRUZIONI",
    "ente": "Wyser",
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5862424829?se=tsIxUyiq8RG1B8ohlkNPrw&utm_medium=api&utm_source=4153f7fc&v=D76FD2DDEDEED3BC735B70AFD7F8A724FBBDC25C",
+   "url": "https://www.adzuna.it/land/ad/5862424829?se=yrKPcDCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=D76FD2DDEDEED3BC735B70AFD7F8A724FBBDC25C",
    "pubblicato": "2026-08-30",
    "scadenza": null,
    "descrizione": "Project Manager – Cantieri navali Nuove Costruzioni L’Azienda Il nostro cliente è uno storico cantiere navale genovese con un consolidato know how nella riparazione e costruzione navale. Il ruolo Nell’ambito dello sviluppo del business delle nuove costruzioni , siamo alla ricerca di un Project Manager che segua la realizzazione delle commesse dalla fase di avvio fino alla consegna finale, garantendo il raggiungimento degli obiettivi contrattuali, tecnici, economici, temporali e qualitativi. Ope…",
@@ -734,41 +703,13 @@
    "marginale": false
   },
   {
-   "id": "liguria-63835",
-   "titolo": "impiegato amministrativo contabile",
-   "ente": "STUDIO ASSOCIATO GIULIETTI",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-13",
-   "scadenza": "2026-09-12",
-   "descrizione": "Addetto/a alla tenuta della contabilità presso Studi Professionali",
-   "punteggio": 65,
-   "dettaglio": {
-    "ambito": "Amministrativo e organizzativo",
-    "pro": [
-     "amministrativo e organizzativo"
-    ],
-    "contro": [],
-    "contratto": "non indicato",
-    "remoto": false
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": false
-  },
-  {
    "id": "adzuna-5843104162",
    "titolo": "Back office amministrativo",
    "ente": "CRS Impianti e Costruzioni S.p.A.",
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5843104162?se=tsIxUyiq8RG1B8ohlkNPrw&utm_medium=api&utm_source=4153f7fc&v=9AABD9E3FF90FC45FB90F0AABD0493040389823F",
+   "url": "https://www.adzuna.it/land/ad/5843104162?se=yrKPcDCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=9AABD9E3FF90FC45FB90F0AABD0493040389823F",
    "pubblicato": "2026-08-15",
    "scadenza": null,
    "descrizione": "La risorsa sarà inserita all'interno dell'area Amministrazione della nostra sede di Genova e si occuperà prevalentemente di attività di back office amministrativo , con particolare riferimento all' inserimento, aggiornamento e controllo dei dati all'interno del gestionale aziendale relativi alle commesse. La figura garantirà la corretta impostazione, gestione e monitoraggio delle anagrafiche di commessa attraverso la creazione delle strutture di progetto, l'aggiornamento della WBS, la predispos…",
@@ -901,7 +842,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": false
   },
   {
@@ -1451,7 +1392,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": false
   },
   {
@@ -1843,37 +1784,6 @@
    "marginale": false
   },
   {
-   "id": "liguria-63857",
-   "titolo": "Addetto ufficio personale",
-   "ente": "Azienda non indicata",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-24",
-   "scadenza": "2026-09-18",
-   "descrizione": "Azienda di autotrasporto merci ricerca un impiegato amministrativo da inserire in ufficio, con riporto diretto alla direzione.\nLa posizione presidia il controllo amministrativo del personale:\n- verifica delle note ore, degli straordinari e delle attività accessorie degli autisti;\n- riconciliazione dei consumi di carburante tra rifornimenti, chilometri percorsi e consumo storico dei veicoli;\n- gestione dello scadenzario degli adempimenti obbligatori: patenti, CQC, carte tachigrafiche, visite mediche, formazione sicurezza, ATP;\n- controllo dei documenti di spesa e delle note trasferta;\n- mappatura e stesura di procedure amministrative interne.\nCompetenza dominante richiesta: riconciliazione di dati. Non è una posizione di gestione di persone.\nRequisiti:\n- uso solido del foglio di calcolo: tabelle pivot, funzioni di ricerca, quadratura dei dati;\n- capacità di descrivere e mappare un processo di lavoro;\n- lettura di CCNL e circolari;\n- diploma di istruzione tecnica a indirizzo economico. La laurea non è requisito.\nCostituisce titolo preferenziale la provenienza da studio di consulenza del lavoro, agenzia per il lavoro, back office amministrativo di azienda di trasporti o distribuzione, controllo di gestione.\nLa selezione prevede prove pratiche in sostituzione del colloquio tradizionale.\nSede di lavoro: Genova bolzaneto.\nInquadramento: CCNL Logistica, Trasporto Merci e Spedizione.",
-   "punteggio": 25,
-   "dettaglio": {
-    "ambito": "Amministrativo e organizzativo",
-    "pro": [
-     "attinente a amministrativo e organizzativo, ma solo nel testo dell'annuncio",
-     "competenze in comune: analisi dei requisiti"
-    ],
-    "contro": [
-     "il ruolo nel titolo non e' quello cercato"
-    ],
-    "contratto": "non indicato",
-    "remoto": false
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": false
-  },
-  {
    "id": "adzuna-5872180522",
    "titolo": "Segretaria/recruiter - Genova",
    "ente": "Be Elite srl",
@@ -1931,7 +1841,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": true
   },
   {
@@ -2021,7 +1931,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": true
   },
   {
@@ -2182,27 +2092,56 @@
    "marginale": true
   },
   {
-   "id": "liguria-63903",
-   "titolo": "IMPIEGATA/O AMMINISTRATIVA/O",
-   "ente": "Azienda non indicata",
-   "luogo": "LAVAGNA",
+   "id": "adzuna-5873236616",
+   "titolo": "Incaricato/a Alla Vendita - Stand - Part/Full Time - Orario Flessibile - Genova",
+   "ente": "Aressia Group srls",
+   "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-27",
-   "scadenza": "2026-09-26",
-   "descrizione": "Azienda settore nautico di Lavagna cerca 1 figura di impiegata per attività amministrative (comprese attività contabili di base) e segretariali (front office/back office) con preferibile esperienza. Richiesta conoscenza dell'inglese e ottimo uso del pc (word, excel, posta elettronica, social). Orario part time. Tipologia di contratto da concordare in base all'esperienza dei candidati.",
-   "punteggio": 19,
+   "fonte": "Adzuna",
+   "url": "https://www.adzuna.it/details/5873236616?utm_medium=api&utm_source=4153f7fc",
+   "pubblicato": "2026-09-06",
+   "scadenza": null,
+   "descrizione": "Affermata società di marketing e comunicazione con sede a Genova, ricerca 3 addetti/E all'accoglienza e alla promozione, anche senza esperienza pregressa con ottime doti comunicative. Posizione: La nostra Mission è garantire la massima efficienza ai Clienti di fama mondiale che rappresentiamo creando un ambiente di lavoro sereno e armonioso, dove produttività ed entusiasmo lavorativo camminano di pari passo verso il raggiungimento degli obiettivi aziendali e personali. Requisiti: Profili empati…",
+   "punteggio": 21,
    "dettaglio": {
-    "ambito": "Amministrativo e organizzativo",
+    "ambito": "Comunicazione e social",
     "pro": [
-     "attinente a amministrativo e organizzativo, ma solo nel testo dell'annuncio",
-     "competenze in comune: Excel, inglese",
-     "richiede lingue straniere"
+     "attinente a comunicazione e social, ma solo nel testo dell'annuncio",
+     "competenze in comune: analisi dei requisiti"
     ],
     "contro": [
-     "il ruolo nel titolo non e' quello cercato",
-     "part time"
+     "il ruolo nel titolo non e' quello cercato"
+    ],
+    "contratto": "non indicato",
+    "remoto": false
+   },
+   "contratto": "non indicato",
+   "remoto": false,
+   "secondario": false,
+   "visto_la_prima_volta": "2026-09-06",
+   "nuovo": false,
+   "marginale": true
+  },
+  {
+   "id": "adzuna-5873236617",
+   "titolo": "Accoglienza Clienti - Part/Full Time- Stand/eventi - Genova",
+   "ente": "Aressia Group srls",
+   "luogo": "Genova, Provincia di Genova",
+   "settore": "privato",
+   "fonte": "Adzuna",
+   "url": "https://www.adzuna.it/details/5873236617?utm_medium=api&utm_source=4153f7fc",
+   "pubblicato": "2026-09-06",
+   "scadenza": null,
+   "descrizione": "Affermata società di marketing e comunicazione con sede a Genova, ricerca 3 addetti/E all'accoglienza e alla promozione, anche senza esperienza pregressa con ottime doti comunicative. Posizione: La nostra Mission è garantire la massima efficienza ai Clienti di fama mondiale che rappresentiamo creando un ambiente di lavoro sereno e armonioso, dove produttività ed entusiasmo lavorativo camminano di pari passo verso il raggiungimento degli obiettivi aziendali e personali. Requisiti: Profili empati…",
+   "punteggio": 21,
+   "dettaglio": {
+    "ambito": "Comunicazione e social",
+    "pro": [
+     "attinente a comunicazione e social, ma solo nel testo dell'annuncio",
+     "competenze in comune: analisi dei requisiti"
+    ],
+    "contro": [
+     "il ruolo nel titolo non e' quello cercato"
     ],
     "contratto": "non indicato",
     "remoto": false
@@ -2251,7 +2190,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5868905324?se=DCPiVSiq8RGS9tX3gPU9Ng&utm_medium=api&utm_source=4153f7fc&v=E82FC49A46B21B6D5ABCFD8AE46408434C3468DE",
+   "url": "https://www.adzuna.it/land/ad/5868905324?se=dv_5cTCq8RGogquEo3zAlQ&utm_medium=api&utm_source=4153f7fc&v=E82FC49A46B21B6D5ABCFD8AE46408434C3468DE",
    "pubblicato": "2026-09-03",
    "scadenza": null,
    "descrizione": "Homepanda.it è l’agenzia immobiliare di nuova generazione che sta riscrivendo le regole del Real Estate. Siamo cintura nera di digital marketing e siamo capaci di generare notizie di vendita direttamente dal web , rendendo l’acquisizione degli incarichi molto più efficiente. Unisciti alla nostra squadra se: Sei un agente immobiliare esperto o alle prime armi ma hai grande ambizione Sei orientato al risultato e hai ottime competenze commerciali Sei orientato al digital e all'innovazione Hai un \"…",
@@ -2516,38 +2455,6 @@
    "marginale": true
   },
   {
-   "id": "liguria-63750",
-   "titolo": "Assistente alla poltrona studio odontoiatrico",
-   "ente": "FUBIANI MARCELLO",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-07-29",
-   "scadenza": "2026-09-26",
-   "descrizione": "Il CPI GENOVA PONENTE, ricerca, per conto di studio dentistico Fubiani con sede a Genova Voltri, 1 ASSISTENTE STUDIO ODONTOIATRICO.\nIn particolare la risorsa dovrà occuparsi di assistenza alla poltrona e attività di segreteria (gestione telefono, posta, appuntamenti).\nSi offre lavoro a tempo determinato della durata di 6 mesi finalizzato all'assunzione a tempo indeterminato. \nOrario: part-time 25 ore settimanali da svolgere nei pomeriggi. RAL 22500 euro.\nIn conformità a quanto previsto dalla normativa vigente, la presente offerta di lavoro è indirizzata a candidati di entrambi i sessi.\nPER CANDIDARSI: on line tramite spid/cie sul portale formazione lavoro oppure via email a: luca.ferrari@regione.liguria.it indicando il codice annuncio",
-   "punteggio": 16,
-   "dettaglio": {
-    "ambito": "Amministrativo e organizzativo",
-    "pro": [
-     "attinente a amministrativo e organizzativo, ma solo nel testo dell'annuncio",
-     "tempo indeterminato"
-    ],
-    "contro": [
-     "il ruolo nel titolo non e' quello cercato",
-     "part time"
-    ],
-    "contratto": "indeterminato",
-    "remoto": false
-   },
-   "contratto": "indeterminato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
    "id": "adzuna-5825767590",
    "titolo": "IT Product Manager",
    "ente": "Carnival Corporation",
@@ -2738,7 +2645,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5871992547?se=pMuRViiq8RGBD7rHQ8EWjw&utm_medium=api&utm_source=4153f7fc&v=5EB2AF05E7078FD2F55A1CAEF9C82DE942E75C4D",
+   "url": "https://www.adzuna.it/land/ad/5871992547?se=zttMcjCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=5EB2AF05E7078FD2F55A1CAEF9C82DE942E75C4D",
    "pubblicato": "2026-09-05",
    "scadenza": null,
    "descrizione": "Grafton Office è un team dedicato a valorizzare le esperienze, le competenze e il potenziale dei candidati in ambito Accounting, Sales, Marketing, HR, Legal, Purchasing and Office Management. Per Azienda cliente di Genova Voltri specializzata in trasporti internazionali e attività doganali , ricerchiamo un/una Operativo/a doganale IMPORT-EXPORT settore marittimo. La figura, inserita in un team di 10 collaboratori si occuperà del processo di compilazione e gestione delle bolle doganali per le op…",
@@ -2788,7 +2695,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": true
   },
   {
@@ -2802,6 +2709,36 @@
    "pubblicato": "2026-09-04",
    "scadenza": null,
    "descrizione": "Siamo una realtà specializzata nella gestione clienti per aziende partner operanti in diversi settori. Per ampliamento del nostro team, selezioniamo 2 OPERATORI/ICI TELEFONICI/CHE OUTBOUND da inserire stabilmente all'interno della nostra struttra. COSA FARAI: - Contattare telefonicamente potenziali clienti per conto dei nostri partner - Presentare in modo chiaro e professionale i servizi promossi - Fissare appuntamenti qualificati per il team commerciale - Aggiornare le informazioni sui contatt…",
+   "punteggio": 11,
+   "dettaglio": {
+    "ambito": "Commerciale e contatto cliente",
+    "pro": [
+     "attinente a commerciale e contatto cliente, ma solo nel testo dell'annuncio"
+    ],
+    "contro": [
+     "il ruolo nel titolo non e' quello cercato"
+    ],
+    "contratto": "non indicato",
+    "remoto": false
+   },
+   "contratto": "non indicato",
+   "remoto": false,
+   "secondario": false,
+   "visto_la_prima_volta": "2026-09-06",
+   "nuovo": false,
+   "marginale": true
+  },
+  {
+   "id": "adzuna-5873278183",
+   "titolo": "Agente di Vendita a P.IVA",
+   "ente": "Grafton Recruitment",
+   "luogo": "Genova, Provincia di Genova",
+   "settore": "privato",
+   "fonte": "Adzuna",
+   "url": "https://www.adzuna.it/land/ad/5873278183?se=sLibczCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=0474F3A567CAA7027852219E0F898E24BF74CD44",
+   "pubblicato": "2026-09-06",
+   "scadenza": null,
+   "descrizione": "Grafton Office è la specializzazione di Gi Group dedicata a valorizzare le esperienze, le competenze e il potenziale dei candidati in ambito Accounting, Sales, Marketing, HR, Legal, Engineering Purchasing and Office Management. Ricerchiamo realtà operante nel settore nautico, ricerca un/una Agente di Vendita a P.IVA per lo sviluppo commerciale e la gestione del portafoglio clienti sul territorio. Responsabilità Sviluppo e consolidamento del portafoglio clienti (cantieri, dealer, marine, officin…",
    "punteggio": 11,
    "dettaglio": {
     "ambito": "Commerciale e contatto cliente",
@@ -3040,7 +2977,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5870622355?se=tsIxUyiq8RG1B8ohlkNPrw&utm_medium=api&utm_source=4153f7fc&v=D84B9F0701576AFF2F43DE597F3FDDA302F935E7",
+   "url": "https://www.adzuna.it/land/ad/5870622355?se=yrKPcDCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=D84B9F0701576AFF2F43DE597F3FDDA302F935E7",
    "pubblicato": "2026-09-04",
    "scadenza": null,
    "descrizione": "Selezioniamo per azienda cliente leader nel settore navale Project Manager In questo ruolo sarà il punto di riferimento per la gestione e il coordinamento delle commesse nel settore navale, con focus specifico sulla progettazione, produzione ed installazione a bordo di componenti di arredo. La risorsa si interfaccerà costantemente con l’UfficioTecnico, la Produzione e i Team di Installazione nei cantieri, garantendo il rispetto dei tempi, dei costi e degli standard qualitativi richiesti. Le man…",
@@ -3071,7 +3008,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5864155376?se=tsIxUyiq8RG1B8ohlkNPrw&utm_medium=api&utm_source=4153f7fc&v=A7B44B1BE4A2FFE0A242C6251E49BEA114977791",
+   "url": "https://www.adzuna.it/land/ad/5864155376?se=yrKPcDCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=A7B44B1BE4A2FFE0A242C6251E49BEA114977791",
    "pubblicato": "2026-09-01",
    "scadenza": null,
    "descrizione": "Project Manager_ Progettista Senior Per conto di un'importante realtà industriale operante in contesti ad elevata complessità tecnologica, con sede a Genova, ricerchiamo un/una Coordinatore Sistemi e Componenti Meccanici da inserire all'interno di un team impegnato nello sviluppo di progetti innovativi in ambito meccanico e impiantistico. La risorsa avrà un ruolo chiave nel coordinamento delle attività tecniche, collaborando con team multidisciplinari e contribuendo all'intero ciclo di sviluppo…",
@@ -3096,32 +3033,6 @@
    "marginale": true
   },
   {
-   "id": "liguria-63781",
-   "titolo": "Aiuto cuoco",
-   "ente": "Azienda non indicata",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-04",
-   "scadenza": "2026-09-06",
-   "descrizione": "Impresa artigiana ristorativa di cibo di asporto take away con servizio caldo a pranzo e vendita di integratori e cibi salutistici in Genova Centro cerca n.1 AIUTO CUCINA APPRENDISTATO (18/29 anni) . Obiettivo primario dell'azienda è la formazione iniziale, obiettivo secondario sarà la posibilità di crescita professionale. Mansioni: assistenza nellla preparazione delle pietanze e pulizia. Requisiti: preferibile titolo di studio in ambito ristorativo, volontà di crescere e di imparare per diventare cuoco. Contratto full time da lunedì al sabato domenica chiuso. Orario di apertura del negozio 9.00/20 (lu-gio) e 9.00/21 (ve e sabato) . PER CANDIDARSI: tramite SPID o CIE direttamente da sito web oppure via email a: laura.merlo@regione.liguria.it",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
    "id": "inpa-b2c97267db92475ca479fc6cf7b45ac4",
    "titolo": "OPERATORE SOCIO‑SANITARIO (OSS)",
    "titolo_ufficiale": "AVVISO PUBBLICO DI SELEZIONE, PER TITOLI ED ESAME PRATICO, PER IL CONFERIMENTO DI N. 1 INCARICO A TEMPO DETERMINATO DI OPERATORE SOCIO‑SANITARIO (OSS) (fino al 31/12/2026)",
@@ -3134,188 +3045,6 @@
    "scadenza": "2026-09-07",
    "posti": 1,
    "descrizione": "AVVISO PUBBLICO DI SELEZIONE, PER TITOLI ED ESAME PRATICO, PER IL CONFERIMENTO DI N. 1 INCARICO A TEMPO DETERMINATO DI OPERATORE SOCIO‑SANITARIO (OSS) (fino al 31/12/2026) AVVISO PUBBLICO DI SELEZIONE, PER TITOLI ED ESAME PRATICO, PER IL CONFERIMENTO DI N. 1 INCARICO A TEMPO DETERMINATO DI OPERATORE SOCIO‑SANITARIO (OSS) (fino al 31/12/2026) \n L’A.S.P. Opere Pie Riunite Devoto Marini Sivori, con sede in Lavagna (GE), Corso Genova n. 70, in esecuzione della determinazione del Direttore Generale n. 115 del 27/08/2026, preso atto che dalla vigente pianta organica risulta la cessazione, per licenziamento conseguente a dichiarazione di inidoneità assoluta all’impiego, di n. 1 unità di personale inquadrata nel profilo di Operatore Socio‑Sanitario, e ritenuto pertanto necessario garantire la continuità dell’assistenza agli ospiti, rende noto che è indetta una procedura di selezione, per titoli ed esame pratico, finalizzata alla formazione di una graduatoria per il conferimento di: \n\n   n. 1 incarico di lavoro subordinato a tempo determinato nel profilo di OPERATORE SOCIO‑SANITARIO (OSS) \n\n per esigenze straordinarie e temporanee di servizio, con contratto di durata presumibile fino al 31/12/2026, fatto salvo quanto meglio specificato nel bando",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63626",
-   "titolo": "Aiuto cuoco/cuoca",
-   "ente": "Azienda non indicata",
-   "luogo": "SESTRI LEVANTE",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-07-09",
-   "scadenza": "2026-09-10",
-   "descrizione": "Bar sito nel tigullio orientale ricerca una risorsa da adibire alle attività di supporto per la preparazione della prodotti \nrelativa alla tavola calda e fredda: preparazione degli ingredienti ed impiattamento, riordino della cucina e delle stoviglie. Per il servizio ai tavoli, presa degli ordini e gestione della clientela al tavolo. Si prediligono i candidati che abbiamo maturato un'esperienza nella mansione ricercata dotati di buone doti relazionali. L'orario di lavoro è dalle 11.30 alle 14.30 dal lunedì al sabato, trattasi di sostituzione maternità. Si valutano le candidature effettuate al seguente indirizzo e mail:simona.barletta@regione.liguria.it",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63905",
-   "titolo": "Impiegato/a",
-   "ente": "Azienda non indicata",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-27",
-   "scadenza": "2026-09-11",
-   "descrizione": "Il Collocamento Mirato di Genova ricerca un impiegato/a iscritto Art.1 L.68/99 con Diploma ed esperienza pregressa nella\nmansione. Le attività da svolgere sono: attività pratiche automobilistiche con utilizzo del PC, ricezione del pubblico.Si richiede conoscenza del PC,\nin particolare Excel, ed esperienza pregressa nella mansione.L'azienda è situata a Genova Levante.L'orario di lavoro è part time 21 h settimanali\nda lunedì a venerdì.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63780",
-   "titolo": "Magazziniere autista",
-   "ente": "Azienda non indicata",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-03",
-   "scadenza": "2026-09-11",
-   "descrizione": "Il Centro per l’Impiego Ponente, ricerca per conto di un’azienda di Sampierdarena, che tratta commercio all’ingrosso di utensileria, un/una magazziniere autista. Offre un contratto iniziale di un anno, finalizzato alla stabilizzazione. Orario 8/12 – 13/17 dal lunedì al venerdì.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63594",
-   "titolo": "Meccanico/a con esperienza",
-   "ente": "Azienda non indicata",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-07-06",
-   "scadenza": "2026-09-11",
-   "descrizione": "Il Centro per l’impiego Ponente, ricerca per conto di un’officina di Pra’, un/una meccanico auto specializzato/a per la riparazione motori, munito di patente B. Offre un contratto a tempo indeterminato full time ed una retribuzione annua lorda da 30.000€",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63301",
-   "titolo": "Operatori/trici pluriservizi",
-   "ente": "Azienda non indicata",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-05-28",
-   "scadenza": "2026-09-11",
-   "descrizione": "Il Centro per l’Impiego Ponente, ricerca per conto di un’azienda di ristorazione, 2 Operatori/trici pluriservizi da inserire nell’Area di servizio Turchino Ovest (A26 Genova Pra’ – Gravellona Toce), per attività di somministrazione al cliente, approntamento del punto vendita, ripristino delle scorte, procedure di cassa, pulizia degli ambienti e vendita suggerita. I profili useranno attrezzature e macchinari del settore e dovranno avere ottime doti relazionali, orientamento al lavoro di squadra, abilità manuali, disponibilità e flessibilità in termini di orari. I profili dovranno essere auto/motomuniti e avere, preferibilmente HACCP – Sicurezza sul lavoro. Offresi un contratto iniziale di 3-4 mesi finalizzati alla stabilizzazione. cpi.ponente@regione.liguria.it",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63838",
-   "titolo": "ADDETTO MANUTENZIONE",
-   "ente": "Azienda non indicata",
-   "luogo": "LAVAGNA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-13",
-   "scadenza": "2026-09-12",
-   "descrizione": "Associazione sportiva di Lavagna cerca una figura di addetto/a alla manutenzione per attività di cura, manutenzione ordinaria, pulizia di area verde (parco) e struttura sportiva. Richiesta esperienza nel ruolo, capacità d'uso di strumenti per la cura del verde e abilità manuali.\nInziale contratto a tempo determinato part time (circa 3/4 ore al giorno con orario mattutino) con possibilità di valutare successivamente un inserimento a tempo indeterminato.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63258",
-   "titolo": "Operatore/trice tecnico/a settore navale",
-   "ente": "NAVALTEST SRL",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-05-26",
-   "scadenza": "2026-09-13",
-   "descrizione": "Il CPI GENOVA PONENTE ricerca, per conto di azienda operante nel settore navale che si occupa di test non distruttivi per le navi-NDT (metodi di ispezione che valutano l'integrità di scafi, le componenti e le altre strutture senza danneggiarli, tramite tecniche non distruttive: liquidi penetranti, magnetoscopia, ultrasuoni etc., al fine di garantire la sicurezza, la conformità normativa e la qualità delle imbarcazioni), 1 OPERATORE/TRICE ADDETTO/A AI CONTROLLI. Si offre contratto a tempo indeterminato. Si richiede conoscenza della lingua inglese, del disegno tecnico ed il possesso della patente B. Previste trasferte anche all'estero. ZONA DI LAVORO: GENOVA PONENTE. Orario: 08.00– 17:00. In conformità a quanto previsto dalla normativa vigente, la presente offerta di lavoro è indirizzata a candidati di entrambi i sessi. PER CANDIDARSI: on line tramite spid/cie sul portale formazione lavoro.",
    "punteggio": 0,
    "dettaglio": {
     "ambito": null,
@@ -3391,58 +3120,6 @@
    "marginale": true
   },
   {
-   "id": "liguria-63927",
-   "titolo": "Responsabile Tecnico e Operativo",
-   "ente": "azienda edile genovese srl",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-31",
-   "scadenza": "2026-09-15",
-   "descrizione": "Per ampliamento del nostro organico ricerchiamo con massima serietà tre manutentori specializzati, nello specifico un manutentore idraulico, un manutentore elettricista e un muratore polivalente con solide competenze anche nella parte idraulica ed elettrica.Richiediamo almeno 5 anni di esperienza comprovata nel settore, ottima manualità, precisione e capacità di lavorare in autonomia. È indispensabile essere patentati e disponibili a trasferte su tutto il territorio nazionale.La ricerca è effettuata direttamente dal Responsabile Tecnico, con lettere A e D verificabili ai sensi del D.M. 37/08, a garanzia di un'azienda seria e strutturata.Offriamo inserimento regolare con RAL adeguato all'esperienza, bonus per le trasferte e continuità lavorativa.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63843",
-   "titolo": "Monitoraggio ambientale",
-   "ente": "GE.CO. GESTIONE COSTIERA SRL",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-17",
-   "scadenza": "2026-09-15",
-   "descrizione": "Laurea magistrale in biologia marina, scienze ambientali, scienze naturali, geologia marina - Possibilmente in possesso di patente nautica",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
    "id": "inpa-a5e71667a21e4ed6a9da1339e9edb37a",
    "titolo": "Area dei Collaboratori - Settore professionale tecnico, scientifico, tecnologico, informatico e dei servizi generali",
    "titolo_ufficiale": "UNIVERSITA' DEGLI STUDI DI GENOVA - procedura pubblica, per titoli ed esami, per la costituzione di rapporto di lavoro a tempo determinato e pieno n. 1 unità di personale da inquadrare nell’Area dei Collaboratori, profilo di Tecnico a supporto della gestione dei corsi di dottorato di ricerca dipartimentali - DIBRIS",
@@ -3455,110 +3132,6 @@
    "scadenza": "2026-09-16",
    "posti": 1,
    "descrizione": "UNIVERSITA' DEGLI STUDI DI GENOVA - procedura pubblica, per titoli ed esami, per la costituzione di rapporto di lavoro a tempo determinato e pieno n. 1 unità di personale da inquadrare nell’Area dei Collaboratori, profilo di Tecnico a supporto della gestione dei corsi di dottorato di ricerca dipartimentali - DIBRIS Procedura selettiva pubblica, per titoli ed esami, per la costituzione di rapporto di lavoro a tempo determinato e pieno per la durata di 12 mesi, rinnovabile annualmente per una durata massima di complessivi tre anni, con n. 1 unità di personale da inquadrare nell’Area dei Collaboratori, Settore professionale tecnico, scientifico, tecnologico, informatico e dei servizi generali, con profilo di Tecnico a supporto della gestione dei corsi di dottorato di ricerca dipartimentali presso il Dipartimento di Informatica, Bioingegneria, Robotica e Ingegneria dei Sistemi – DIBRIS.\n Procedura selettiva pubblica, per titoli ed esami, per la costituzione di rapporto di lavoro a tempo determinato e pieno per la durata di 12 mesi, rinnovabile annualmente per una durata massima di complessivi tre anni, con n. 1 unità di personale da inquadrare nell’Area dei Collaboratori, Settore professionale tecnico, scientifico, tecnologico, informatico e dei servizi generali, con profilo di Tecnico a supporto della gestione dei corsi di dottorato di ricerca dipartimentali presso il Dipartimento di Informatica, Bioingegneria, Robotica e Ingegneria dei Sistemi – DIBRIS.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63969",
-   "titolo": "ADDETT* ALLA VENDITA ART 1 l.68/99",
-   "ente": "Azienda non indicata",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-09-02",
-   "scadenza": "2026-09-16",
-   "descrizione": "Il collocamento mirato di Genova cerca, per negozio di abbigliamento/calzaturificio zona centro o zona Fiumara, un/a addett* alla vendita part time 21 ore settimanali. E' richiesto un diploma o una qualifica. Utilizzo cassa e PC. Vendita e attività di ricezione e stoccaggio della merce in magazzino. Buona predisposizione al lavoro con il pubblico. SOLO PERSONE ISCRITTE L.68/99 Art 1.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63845",
-   "titolo": "meccanico attrezzature agricole",
-   "ente": "Azienda non indicata",
-   "luogo": "SESTRI LEVANTE",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-17",
-   "scadenza": "2026-09-16",
-   "descrizione": "azienda del settore commercio / agricoltura , ricerca un meccanico preferibilmente con esperienza da inserire per le mansioni di riparazione di attrezzature agricole a scoppio e elettriche di nuova generazione . L'azienda valuta anche un giovane da inserire senza esperienza , preferibilmente con titolo di studio professionale inerente la mansione. Il contratto offerto sarà un tempo determinato di conoscenza , con successiva trasformazione a tempo indeterminato , full time con orario 08-12 / 15-19",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63852",
-   "titolo": "manutentore caldaie",
-   "ente": "DIEMMEDI CLIMA SRL",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-18",
-   "scadenza": "2026-09-17",
-   "descrizione": "Ditta di assistenza caldaia in Genova ricerca personale da formare come manutentori da inserire nel proprio organico",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63848",
-   "titolo": "INSEGNANTE DI TECNOLOGIA E ARTE PER LA SCUOLA SEDONDARIA INFERIORE",
-   "ente": "Fondazione Contubernio d'Albertis per le Sordomute",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-18",
-   "scadenza": "2026-09-17",
-   "descrizione": "Il Centro per l’Impiego della Val Bisagno ricerca per l’Istituto Contubernio d’Albertis (scuola paritaria – nido, sezione Primavera, scuola primaria, scuola secondaria di primo grado) in zona San Fruttuoso la seguente figura:\nINSEGNANTE DI TECNOLOGIA E ARTE PER LA SCUOLA SEDONDARIA INFERIORE\nRequisiti richiesti:\n• Essere in possesso dei seguenti titoli di studio: Laurea di accesso alle classi di concorso A-01 e A-60 (Architettura, ingegneria, altro)\nNel caso non si possegga l’abilitazione, si richiede di esplicitare sul cv il numero di CFU posseduti;\n• Attività: Insegnamento delle discipline indicate nelle due sezioni della scuola secondaria inferiore; attività didattica ed educativa nel rispetto della normativa vigente;\n• Orario: 18 ore settimanali, da lunedì al venerdì, in fascia oraria prevalentemente di mattina con un pomeriggio;\n• Contratto da: anno scolastico 2026/2027 a partire dal 8 settembre 26;\n• RAL 30.000,00 euro annui;\n• PREGO ALLEGARE CV CON FOTO;",
    "punteggio": 0,
    "dettaglio": {
     "ambito": null,
@@ -3690,32 +3263,6 @@
    "marginale": true
   },
   {
-   "id": "liguria-63953",
-   "titolo": "Specialista del prodotto industria chimica - Laurea in Tecnologie Farmaceutiche, Scienze e Tecnologie Cosmetiche o affini",
-   "ente": "Azienda non indicata",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-09-02",
-   "scadenza": "2026-09-18",
-   "descrizione": "Azienda settore chimico cerca 1 specialista di prodotto per dare informazioni e offrire supporto tecnico / scientifico e marketing sul prodotto presso i clienti italiani e stranieri. La mansione prevede anche un lavoro di redazione di documentazione tecnica, regolatoria e marketing; assistenza tecnica ai clienti, inclusa la gestione di richieste specifiche; aggiornamento su normative e innovazioni nel settore dermocosmetico; supporto alla formazione clienti interna; organizzazione eventi clienti; preparazione e partecipazione a fiere di settore ed organizzazione ed esecuzione visite presso clienti in Italia e estero.\nSi cercano laureati in Tecnologie Farmaceutiche, Scienze e Tecnologie Cosmetiche o affini con buona conoscenza della lingua inglese. Si offre Apprendistato 24 mesi. Orario di lavoro full time lunedì - venerdì 8.30-12.45 e 13.45-17. Per candidarsi: tramite SPID direttamente da sito web oppure via email a: federica.campi@regione.liguria.it",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
    "id": "inpa-d648f5d609614373b2d1fa47dbe6d80d",
    "titolo": "ISTRUTTORE CONTABILE",
    "titolo_ufficiale": "BANDO DI CONCORSO PUBBLICO, PER SOLI ESAMI, PER LA COPERTURA DI N.1 POSTO DI ISTRUTTORE CONTABILE (AREA ISTRUTTORI – EX CAT.C) A TEMPO PIENO E INDETERMINATO",
@@ -3800,32 +3347,6 @@
    "marginale": true
   },
   {
-   "id": "liguria-63828",
-   "titolo": "estetista qualificata con esperienza",
-   "ente": "Azienda non indicata",
-   "luogo": "RAPALLO",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-10",
-   "scadenza": "2026-09-20",
-   "descrizione": "Centro estetico sito in Rapallo ricerca estetista, preferibilmente con esperienza, per sostituzione maternità. Si offre contratto a tempo terminato full time con due giorni di riposo, domenica e lunedì. Le candidature potranno pervenire anche alla mail eliana.oliveri@regione.liguria.it",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
    "id": "inpa-f736578ab4854edbaac37cae3a776da9",
    "titolo": "Funzionario Farmacista",
    "titolo_ufficiale": "CONCORSO PUBBLICO, PER ESAMI, PER LA COPERTURA DI N.1 POSTO DI FARMACISTA (AREA FUNZIONARI E ELEVATA QUALIFICAZIONE – EX CAT. D) A TEMPO PIENO E INDETERMINATO",
@@ -3838,188 +3359,6 @@
    "scadenza": "2026-09-21",
    "posti": 1,
    "descrizione": "CONCORSO PUBBLICO, PER ESAMI, PER LA COPERTURA DI N.1 POSTO DI FARMACISTA (AREA FUNZIONARI E ELEVATA QUALIFICAZIONE – EX CAT. D) A TEMPO PIENO E INDETERMINATO E' indetto un concorso per esami per la copertura di n.1 posto di Funzionario Farmacista (Area Funzionari EQ) a tempo piedno indeterminato.\n E' indetto un concorso per esami per la copertura di n.1 posto di Funzionario Farmacista (Area Funzionari EQ) a tempo pieno indeterminato. Il possesso dei requisiti specifici relativi al titolo di studio, indicati nel bando allegato, è richiesto a pena di esclusione dalla procedura concorsuale.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63867",
-   "titolo": "COLLABORATRICE FAMILIARE (COLF)",
-   "ente": "Azienda non indicata",
-   "luogo": "ZOAGLI",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-24",
-   "scadenza": "2026-09-23",
-   "descrizione": "famiglia di Zoagli ricerca una persona affidabile per le pulizie ambienti interni e spazio esterno e la gestione delle attività casalinghe come bucato e stiro con esperienza nella mansione. Il contratto offerto è un tempo indeterminato di 5/6 ore settimanali una volta a settimana. E' preferibile il possesso di un mezzo proprio per arrivare alla proprietà.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63766",
-   "titolo": "impiegato/a amministrativo/a",
-   "ente": "Azienda non indicata",
-   "luogo": "CHIAVARI",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-07-30",
-   "scadenza": "2026-09-23",
-   "descrizione": "Studio peritale di Chiavari è alla ricerca di due risorse da inserire come impiegato/a amministrativo/a. La figura dovrà occuparsi del front office, della posta elettronica, della gestione danneggiati e delle relative pratiche con acquisizione della documentazione specifica utile alla stima ,dell' utilizzo di portali assicurativi e dello specifico gestionale interno. Sono richiesti diploma superiore (preferibile ragioneria e/o titoli affini), ottima padronanza informatica (pacchetto Office e gestione mail). Si offre iniziale tirocinio con orario full time (8.30/12.30 e 13.30/17.30), dal lunedì al venerdì, con successiva possibilità di inserimento con contratto di apprendistato. Il tirocinio è rivolto a soggetti privi di esperienza nella mansione e prevede un’indennità di partecipazione. Lo studio è raggiungibile con mezzi pubblici. È possibile candidarsi all’annuncio anche inviando una mail all’indirizzo cpi.tigullio@regione.liguria.it , specificando il numero di annuncio e allegando il curriculum vitae.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63742",
-   "titolo": "operaio/a tessitore/trice",
-   "ente": "Azienda non indicata",
-   "luogo": "ZOAGLI",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-07-28",
-   "scadenza": "2026-09-23",
-   "descrizione": "Azienda di produzione tessile ricerca una risorsa da inserire nel proprio organico in qualità di apprendista tessitore/trice\nLa figura dovrà occuparsi di preparare i telai, sistemare i disegni e annodare gli orditi; inoltre dovrà avere buona manualità ed eseguire piccoli lavori di manutenzione e riparazione.\nSi richiede la conoscenza della lingua inglese (B1) , resistenza allo stress e alla fatica.\nSi offre contratto di apprendistato di 30 ore settimanali dal lunedì al venerdì.\nE' possibile candidarsi anche inviando una mail all'indirizzo cpi.tigullio@regione.liguria.it ,specificando il numero di annuncio e allegando il proprio curriculum",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63832",
-   "titolo": "Contabile",
-   "ente": "Azienda non indicata",
-   "luogo": "SANTA MARGHERITA LIGURE",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-11",
-   "scadenza": "2026-09-24",
-   "descrizione": "Studio professionale associato di Santa Margherita Ligure ricerca personale con esperienza specifica nel settore maturata presso altri studi, in grado di gestire l'attività che varia dalla gestione del personale, al bilancio aziendale, agli adempimenti fiscali. Si offre un contratto a tempo indeterminato full time, con orario dalle 8.30 - 12.30 e dalle 14.30 - 18.30. Verrà data priorità nelle candidature alle persone domiciliate in zone limitrofe alla sede dell'azienda.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63817",
-   "titolo": "Carpentiere Metallico con esperienza",
-   "ente": "Azienda non indicata",
-   "luogo": "CASARZA LIGURE",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-06",
-   "scadenza": "2026-09-24",
-   "descrizione": "Azienda di Casarza Ligure ricerca un operaio qualificato da inserire in azienda con contratto a tempo indeterminato. E' richiesta esperienza come fabbro, o serramentista , carpentiere per Fabbricazione di strutture metalliche e di parti di strutture metalliche : usi civili, industriali, nautici . L'azienda si trova fuori dal centro pertanto è richiesto mezzo di trasporto . orario di lavoro : 8.00 – 12.00 13.30 – 17.30 dal lunedì al venerdì",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63602",
-   "titolo": "Impiegata amministrativo contabile",
-   "ente": "Azienda non indicata",
-   "luogo": "CICAGNA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-07-07",
-   "scadenza": "2026-09-24",
-   "descrizione": "azienda di Cicagna ricerca un/a contabile da inserire in organico con iniziale tempo determinato di conoscenza per una successiva stabilizzazione . le mansioni saranno quelle di gestione del ciclo attivo e passivo: Emissione di fatture ai clienti, registrazione delle fatture dei fornitori e controllo dei pagamenti.Tenuta della contabilità generale: Registrazione dei movimenti in prima nota, gestione di cassa e banche.Adempimenti fiscali e previdenziali: Preparazione e invio di dati e documenti per il pagamento di tasse e contributi. Predisposizione del bilancio: Raccolta e verifica dei dati contabili (inclusi ratei, risconti e ammortamenti) da passare al commercialista o al CFO per la chiusura del bilancio. Riconciliazioni bancarie e reportistica: Verifica della corrispondenza tra i conti aziendali e gli estratti conto, e redazione di report periodici. E' richiesta buona conoscenza dei principali programmi di contabilità , excel e word e esperienza nella mansione . l'orario di lavoro è dalle 08,00 alle 12,00 e dalle 13,00 alle 17,00 .",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63557",
-   "titolo": "Operatore socio sanitario",
-   "ente": "Azienda non indicata",
-   "luogo": "RAPALLO",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-06-26",
-   "scadenza": "2026-09-25",
-   "descrizione": "Struttura privata ricerca un operatore socio sanitario/a che gestisca le attività di assistenza degli ospiti presenti presso la casa di riposo. L'azienda valuta eventualmente anche una risorsa che è in fase di conclusione del percorso formativo per l'acquisizione della qualifica. L'orario di lavoro prevede turni diurni e notturni: dalle 07.00 alle 14.00 o dalle 14.00 alle 21.00 o dalle 21.00 alle 7.00 della mattina. Il contratto di lavoro offerto è un iniziale tempo determinato di un anno con possibile stabilizzazione in organico.",
    "punteggio": 0,
    "dettaglio": {
     "ambito": null,
@@ -4104,162 +3443,6 @@
    "scadenza": "2026-09-30",
    "posti": 1,
    "descrizione": "ARPAL - CONCORSO PUBBLICO PER ESAMI, FINALIZZATO ALLA COPERTURA DI UN POSTO A TEMPO PIENO E INDETERMINATO DI COLLABORATORE TECNICO PROFESSIONALE – PROFILO INFORMATICO-SISTEMISTA PER HPC (HIGH PERFORMANCE COMPUTING) – AREA DEI PROFESSIONISTI DELLA SALUTE E DEI FUNZIONARI DEL CCNL COMPARTO SANITA’ TRIENNIO 2022/2024, DA ASSEGNARE AL DIPARTIMENTO STATO DELL’AMBIENTE E TUTELA DAI RISCHI NATURALI - U.O. CLIMA METEO IDRO – SEDE DI LAVORO GENOVA. CONCORSO PUBBLICO PER ESAMI, FINALIZZATO ALLA COPERTURA DI UN POSTO A TEMPO PIENO E INDETERMINATO DI COLLABORATORE TECNICO PROFESSIONALE – PROFILO INFORMATICO-SISTEMISTA PER HPC – AREA PROFESSIONISTI DELLA SALUTE E DEI FUNZIONARI CCNL COMPARTO SANITA’ 2022/2024, DA ASSEGNARE AL DIP. STATO DELL’AMBIENTE E TUTELA DAI RISCHI NATURALI - U.O. CLIMA METEO IDRO – SEDE LAVORO GENOVA.\n ARPAL - CONCORSO PUBBLICO PER ESAMI, FINALIZZATO ALLA COPERTURA DI UN POSTO A TEMPO PIENO E INDETERMINATO DI COLLABORATORE TECNICO PROFESSIONALE – PROFILO INFORMATICO-SISTEMISTA PER HPC (HIGH PERFORMANCE COMPUTING) – AREA DEI PROFESSIONISTI DELLA SALUTE E DEI FUNZIONARI DEL CCNL COMPARTO SANITA’ TRIENNIO 2022/2024, DA ASSEGNARE AL DIPARTIMENTO STATO DELL’AMBIENTE E TUTELA DAI RISCHI NATURALI - U.O. CLIMA METEO IDRO – SEDE DI LAVORO GENOVA.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63888",
-   "titolo": "meccanico auto",
-   "ente": "Azienda non indicata",
-   "luogo": "CHIAVARI",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-26",
-   "scadenza": "2026-09-30",
-   "descrizione": "Autofficina di Chiavari cerca 1 meccanico auto con esperienza da inserire nello staff. In alternativa, l'azienda valuta anche profili in età di apprendistato provenienti da percorsi di studio di manutenzione meccanica (percorsi triennali). Patente B. Orario full time. Tipo di contratto da valutare in base alle caratteristiche dei candidati.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63683",
-   "titolo": "SEGRETARIA DI AGENZIA IMMOBILIARE",
-   "ente": "Del Guasta Studio Immobiliare Srl",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-07-20",
-   "scadenza": "2026-09-30",
-   "descrizione": "Cerchiamo una segretaria/o full time alla reception e gestione telefonate/appuntamenti con esperienza nel settore della promozione degli immobili. \nLa persona deve saper pubblicizzare gli immobili in vendita, creare annunci, gestire i rapporti con i grafici ed i fotografi ed impaginare le pubblicità cartacee.\nPreferibilmente con esperienza nel settore.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63948",
-   "titolo": "IMPIEGATO/A ADDETTO/A PAGHE",
-   "ente": "Azienda non indicata",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-09-01",
-   "scadenza": "2026-10-01",
-   "descrizione": "Il CPI GENOVA PONENTE, ricerca, per conto di uno studio di consulenza fiscale e del lavoro, con zona di lavoro VALLE STURA (Masone/Rossiglione/Campoligure), raggiungibile con mezzi pubblici, un/a IMPIEGATO/A ADDETTO/A PAGHE E CONTRIBUTI. Richiesta conoscenza nell'utilizzo di software paghe, Word, Excel. Si propone iniziale contratto a tempo determinato della durata di 6 mesi, finalizzato all’assunzione a tempo indeterminato. RAL: 23.500 euro. Orario di lavoro: tempo pieno/part time da concordare con il datore di lavoro, nelle fasce orarie: dalle 8:30/09.00 alle 12:30/13.00 e dalle 14:30 alle 18:30 da lunedì a venerdì.\nIn conformità a quanto previsto dalla normativa vigente, la presente offerta di lavoro è indirizzata a candidati di entrambi i sessi.\nPER CANDIDARSI: on line tramite spid/cie sul portale formazione lavoro.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-63973",
-   "titolo": "PERITO INFORMATICO",
-   "ente": "Azienda non indicata",
-   "luogo": "GENOVA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-09-03",
-   "scadenza": "2026-10-03",
-   "descrizione": "Il CPI GENOVA PONENTE per conto di azienda operante nella costruzione e riparazione di macchine elettriche del settore navale ed aeronautico è alla ricerca di n. 1 PERITO INFORMATICO. Zona di lavoro: GENOVA PEGLI. Si offre CONTRATTO A TEMPO DETERMINATO DELLA DURATA DI 6 MESI. Orario di lavoro: Full time (LUN-VEN: 08:00-17:00 con 1h di pausa). RAL 23750. In conformità a quanto previsto dalla normativa vigente, la presente offerta di lavoro è indirizzata a candidati di entrambi i sessi. PER CANDIDARSI: on line tramite spid/cie sul portale formazione lavoro, oppure via e-mail inviando il proprio cv a: luca.ferrari@regione.liguria.it specificando il numero dell'annuncio.",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-62669",
-   "titolo": "carpentiere/saldatore",
-   "ente": "Azienda non indicata",
-   "luogo": "SERRA RICCO'",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-03-25",
-   "scadenza": "2026-10-04",
-   "descrizione": "saldatore a filo continuo su strutture di medie dimensioni (6 x 2 m) in ogni posizione (anche sovratesta)\ncapacità di lavorare come carpentiere, taglio e preparazione del materiale per successiva saldatura\nuso di attrezzatura di base dell'officina, uso plasma e fiamma ossidrica per taglio -\nnon è richiesto patentino - contratto a tempo determinato per periodo di prova finalizzato all'assunzione a tempo indeterminato",
-   "punteggio": 0,
-   "dettaglio": {
-    "ambito": null,
-    "pro": [],
-    "contro": [
-     "non corrisponde a nessuno degli ambiti cercati"
-    ]
-   },
-   "contratto": "non indicato",
-   "remoto": false,
-   "secondario": false,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": true
-  },
-  {
-   "id": "liguria-62668",
-   "titolo": "Manutentore meccanico",
-   "ente": "Azienda non indicata",
-   "luogo": "SERRA RICCO'",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-03-25",
-   "scadenza": "2026-10-04",
-   "descrizione": "Meccanico manutentore per riparazione degli allestimenti di veicoli industriali (cassoni/furgoni, gru idrauliche, pedane caricatrici) - contratto a tempo determinato per periodo di prova finalizzato all'assunzione a tempo indeterminato - preferibile esperienza in ambito meccanico-elettromeccanico",
    "punteggio": 0,
    "dettaglio": {
     "ambito": null,
@@ -4391,7 +3574,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5864154514?se=tsIxUyiq8RG1B8ohlkNPrw&utm_medium=api&utm_source=4153f7fc&v=BAF6E8B203FE77D6E0144028EA488F73027D7185",
+   "url": "https://www.adzuna.it/land/ad/5864154514?se=yrKPcDCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=BAF6E8B203FE77D6E0144028EA488F73027D7185",
    "pubblicato": "2026-09-01",
    "scadenza": null,
    "descrizione": "De Wave Group cerca: Project Engineer – Outfitting Navale Sede: Genova (GE) Contratto: Tempo indeterminato Ricerca aperta a tutte le persone Chi siamo: De Wave Group è tra i principali operatori a livello globale nel settore degli allestimenti d’interni per il comparto Cruise & Yacht. Progettiamo e realizziamo soluzioni integrate che combinano arredi e sistemi tecnici, seguendo ogni fase del progetto : dall’ingegneria allo sviluppo produttivo, sino alla consegna e al post-vendita. Per ampliare …",
@@ -4417,7 +3600,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5859658120?se=tsIxUyiq8RG1B8ohlkNPrw&utm_medium=api&utm_source=4153f7fc&v=45D38191D1766E2EF47B59F31EFD090EFB49FBA0",
+   "url": "https://www.adzuna.it/land/ad/5859658120?se=yrKPcDCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=45D38191D1766E2EF47B59F31EFD090EFB49FBA0",
    "pubblicato": "2026-08-28",
    "scadenza": null,
    "descrizione": "CHI SIAMO AGAP2 è un gruppo europeo di consulenza ingegneristica e operativa facente parte del Gruppo MoOngy. Presente in 14 Paesi europei con oltre 7.500 dipendenti, abbiamo aperto la prima sede italiana a Milano e, vista la continua crescita, stiamo rafforzando e ampliando il nostro team con persone che condividano gli stessi valori della nostra società: AMBIZIONE, SORRISO, DINAMISMO e VOGLIA DI METTERSI IN GIOCO . Il tutto all’interno di una realtà in continua evoluzione, nella quale le rela…",
@@ -4495,7 +3678,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5823761450?se=tsIxUyiq8RG1B8ohlkNPrw&utm_medium=api&utm_source=4153f7fc&v=C76F88C705AC3872F27C82F3A4E2E4E9CABC83B2",
+   "url": "https://www.adzuna.it/land/ad/5823761450?se=yrKPcDCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=C76F88C705AC3872F27C82F3A4E2E4E9CABC83B2",
    "pubblicato": "2026-08-01",
    "scadenza": null,
    "descrizione": "CSP (Coordinatore della Sicurezza in fase di Progettazione) – Infrastrutture Sede di lavoro: Genova Chi siamo AGAP2 Italia è parte del Gruppo MoOngy, player europeo di riferimento nei servizi di consulenza ingegneristica e IT. In Italia supporta i propri clienti nello sviluppo di progetti ad alto contenuto tecnico nei settori infrastrutture, trasporti, energia, industria e costruzioni, con un approccio orientato alla qualità, alla sicurezza e alla crescita professionale delle proprie risorse.…",
@@ -4680,7 +3863,7 @@
    "luogo": "Liguria, Italia",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5871992425?se=Xvq0VCiq8RGogquEo3zAlQ&utm_medium=api&utm_source=4153f7fc&v=A5F418211250723FEE8894F079B6149021DAA2E2",
+   "url": "https://www.adzuna.it/land/ad/5871992425?se=rNhUcTCq8RGZPLuoujcPNg&utm_medium=api&utm_source=4153f7fc&v=A5F418211250723FEE8894F079B6149021DAA2E2",
    "pubblicato": "2026-09-05",
    "scadenza": null,
    "descrizione": "Vuoi iniziare una nuova avventura professionale come C++ Embedded Software Engineer in una delle nostre opportunità nel settore Aeronautico a La Spezia ? Cosa farai? • Sviluppare e manutenere applicazioni software in C++ per sistemi aerospaziali e di difesa. • Collaborare con i team di ingegneria per l’analisi dei requisiti e la definizione delle specifiche tecniche. • Progettare, implementare e ottimizzare algoritmi per sistemi di robotica e/o AI-based. • Eseguire attività di debugging, troub…",
@@ -4706,7 +3889,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5871902239?se=Xvq0VCiq8RGogquEo3zAlQ&utm_medium=api&utm_source=4153f7fc&v=2D57B901A3B37273B4489FDE6816D0CF67F95FCF",
+   "url": "https://www.adzuna.it/land/ad/5871902239?se=rNhUcTCq8RGZPLuoujcPNg&utm_medium=api&utm_source=4153f7fc&v=2D57B901A3B37273B4489FDE6816D0CF67F95FCF",
    "pubblicato": "2026-09-05",
    "scadenza": null,
    "descrizione": "Ruolo : Project Planner Luogo : Genova, Liguria Nato più di 30 anni fa e presente in 30 Paesi, il Gruppo ALTEN si è affermato come leader mondiale nell’ingegneria e nei Servizi IT e leader Europeo per la consulenza nell'industria Life Sciences. Lavoriamo con attori chiave nei settori: Aeronautico &Spaziale, della Difesa & Navale, della Sicurezza, Automobilistico, Ferroviario, dell’Energia, del Life Sciences, Finanziario, del Retail e dei Servizi. Con un fatturato di oltre 4.069 miliardi di euro…",
@@ -4943,7 +4126,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5870622825?se=Xvq0VCiq8RGogquEo3zAlQ&utm_medium=api&utm_source=4153f7fc&v=6EED6DE1A1018B7DABF0E5934EECC485011EF67A",
+   "url": "https://www.adzuna.it/land/ad/5870622825?se=rNhUcTCq8RGZPLuoujcPNg&utm_medium=api&utm_source=4153f7fc&v=6EED6DE1A1018B7DABF0E5934EECC485011EF67A",
    "pubblicato": "2026-09-04",
    "scadenza": null,
    "descrizione": "Quality Control Electrical Engineer – Genova Sintesi del ruolo Ricerchiamo un Quality Control Electrical Engineer con almeno 10 anni di esperienza nel settore Oil & Gas per attività di controllo qualità su impianti e apparecchiature elettriche, con sede a Genova e sporadiche trasferte in Europa. Quality Control Electrical Engineer | Genova | Oil & Gas agap2, società di consulenza ingegneristica, ricerca un Quality Control Electrical Engineer con consolidata esperienza nel settore Oil & Gas da i…",
@@ -5414,7 +4597,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5868905585?se=Xvq0VCiq8RGogquEo3zAlQ&utm_medium=api&utm_source=4153f7fc&v=D4B0F779FA7E3EAD2D0382E56B0DE23E375B4197",
+   "url": "https://www.adzuna.it/land/ad/5868905585?se=rNhUcTCq8RGZPLuoujcPNg&utm_medium=api&utm_source=4153f7fc&v=D4B0F779FA7E3EAD2D0382E56B0DE23E375B4197",
    "pubblicato": "2026-09-03",
    "scadenza": null,
    "descrizione": "CHI SIAMO AGAP2 è un gruppo europeo di consulenza ingegneristica e operativa facente parte del Gruppo MoOngy . Presente in 14 paesi europei con oltre 7.500 dipendenti, abbiamo aperto la prima sede italiana a Milano e, vista la continua crescita, stiamo rafforzando e ampliando il nostro team con persone che condividano gli stessi valori della nostra società: AMBIZIONE, SORRISO, DINAMISMO, VOGLIA DI METTERSI IN GIOCO, il tutto in una realtà in continua evoluzione, nella quale le relazioni umane s…",
@@ -5482,7 +4665,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": true
   },
   {
@@ -5508,7 +4691,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": true
   },
   {
@@ -5534,7 +4717,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": true
   },
   {
@@ -5560,7 +4743,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": true
   },
   {
@@ -5589,7 +4772,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": true
   },
   {
@@ -5641,7 +4824,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": true
   },
   {
@@ -5651,7 +4834,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5871993167?se=pMuRViiq8RGBD7rHQ8EWjw&utm_medium=api&utm_source=4153f7fc&v=D89DB79F9619BCF72DDDF9D9869050E11CEF19EE",
+   "url": "https://www.adzuna.it/land/ad/5871993167?se=zttMcjCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=D89DB79F9619BCF72DDDF9D9869050E11CEF19EE",
    "pubblicato": "2026-09-05",
    "scadenza": null,
    "descrizione": "Descrizione azienda Unisciti alla nostra famiglia culinaria e porta la tua passione per l'arte bianca nel cuore della nostra Pizzeria Rom'Antica. Siamo alla ricerca di un/a ASSISTANT STORE MANAGER FT per il nostro punto vendita di Genova Posizione Assistant Store Manager di Rom'Antica avrai le seguenti responsabilità: Supportare lo Store Manager nella gestione quotidiana del punto vendita. Responsabilità della preparazione , dalla stesura alla cottura, garantendo qualità e velocità del servizio…",
@@ -5677,7 +4860,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5871992207?se=pMuRViiq8RGBD7rHQ8EWjw&utm_medium=api&utm_source=4153f7fc&v=E65B88980DE02D659267E4DC37E21579636B4ACF",
+   "url": "https://www.adzuna.it/land/ad/5871992207?se=zttMcjCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=E65B88980DE02D659267E4DC37E21579636B4ACF",
    "pubblicato": "2026-09-05",
    "scadenza": null,
    "descrizione": "Descrizione azienda Rom'antica azienda italiana in evoluzione è alla ricerca di un/a Store Manager per il suo punto vendita di Genova Posizione Siamo alla ricerca di uno/a Store Manager di punto vendita. Come Store Manager avrai le seguenti responsabilità: Gestire le operazioni quotidiane del punto vendita; operatività, ordini, controllo delle scorte e servizio clienti. Supervisionare e motivare il team per garantire un servizio cortese, efficiente e di alta qualità. Assicurare il rispetto degl…",
@@ -5800,7 +4983,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": true
   },
   {
@@ -6060,7 +5243,7 @@
    "remoto": false,
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
-   "nuovo": true,
+   "nuovo": false,
    "marginale": true
   },
   {
@@ -6070,7 +5253,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5858253661?se=lIlzWCiq8RG-kOvXEovlMw&utm_medium=api&utm_source=4153f7fc&v=62AC8D9A806B9042980BE65294426B092997EA1D",
+   "url": "https://www.adzuna.it/land/ad/5858253661?se=pvAsczCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=62AC8D9A806B9042980BE65294426B092997EA1D",
    "pubblicato": "2026-08-27",
    "scadenza": null,
    "descrizione": "Per Iren Mercato , Società di Vendita del Gruppo Iren, siamo alla ricerca di una figura da inserire nella Direzione Customer Care , all'interno del team Servizi per Soluzioni Energetiche , nel ruolo di Addetto/a Gestione Clienti. La figura contribuirà al presidio dei processi di customer care e post-vendita, supportando il monitoraggio delle attività operative e il miglioramento continuo dell'esperienza dei clienti. Attività: monitoraggio delle performance operative attraverso l'analisi di KPI;…",
@@ -6113,6 +5296,32 @@
    "secondario": false,
    "visto_la_prima_volta": "2026-09-06",
    "nuovo": false,
+   "marginale": true
+  },
+  {
+   "id": "adzuna-5872793030",
+   "titolo": "Service Training & Customer Education Programs",
+   "ente": "Danaher Corporation",
+   "luogo": "Genova, Provincia di Genova",
+   "settore": "privato",
+   "fonte": "Adzuna",
+   "url": "https://www.adzuna.it/details/5872793030?utm_medium=api&utm_source=4153f7fc",
+   "pubblicato": "2026-09-06",
+   "scadenza": null,
+   "descrizione": "Wondering what's within Beckman Coulter Diagnostics? Take a closer look. At first glance, you'll see that for more than 80 years we've been dedicated to advancing and optimizing the laboratory to move science and healthcare forward. Join a team where you can be heard, be supported, and always be yourself. We're building a culture that celebrates backgrounds, experiences, and perspectives of all our associates. Look again and you'll see we are invested in you, providing the opportunity to build …",
+   "punteggio": 0,
+   "dettaglio": {
+    "ambito": null,
+    "pro": [],
+    "contro": [
+     "non corrisponde a nessuno degli ambiti cercati"
+    ]
+   },
+   "contratto": "non indicato",
+   "remoto": false,
+   "secondario": false,
+   "visto_la_prima_volta": "2026-09-06",
+   "nuovo": true,
    "marginale": true
   },
   {
@@ -6541,7 +5750,7 @@
    "luogo": "Genova, Provincia di Genova",
    "settore": "privato",
    "fonte": "Adzuna",
-   "url": "https://www.adzuna.it/land/ad/5870623735?se=_t0vWyiq8RG1B8ohlkNPrw&utm_medium=api&utm_source=4153f7fc&v=CC0E5E671DD10F063E8E8E11B402B990C5C54A1E",
+   "url": "https://www.adzuna.it/land/ad/5870623735?se=aqRydDCq8RGlI_dq_IL75Q&utm_medium=api&utm_source=4153f7fc&v=CC0E5E671DD10F063E8E8E11B402B990C5C54A1E",
    "pubblicato": "2026-09-04",
    "scadenza": null,
    "descrizione": "Grafton Retail&GDO* è un team dedicato a valorizzare le esperienze, le competenze e il potenziale dei candidati nel mondo del retail e della grande distribuzione . Siamo un team di professionisti appassionati, lavoriamo per accompagnare i nostri candidati verso le mansioni ed i contesti aziendali più coerenti con le loro competenze e le loro aspettative. Per azienda cliente del settore GDO alimentare all'ingrosso selezioniamo: CAPO REPARTO PESCHERIA_ GENOVA Sarai inserito/a all'interno di un pu…",
@@ -8285,36 +7494,6 @@
     "remoto": false
    },
    "contratto": "somministrazione",
-   "remoto": false,
-   "secondario": true,
-   "visto_la_prima_volta": "2026-09-06",
-   "nuovo": false,
-   "marginale": false
-  },
-  {
-   "id": "liguria-63830",
-   "titolo": "assemblatore materie plastiche",
-   "ente": "Azienda non indicata",
-   "luogo": "CICAGNA",
-   "settore": "privato",
-   "fonte": "Regione Liguria",
-   "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
-   "pubblicato": "2026-08-11",
-   "scadenza": "2026-09-10",
-   "descrizione": "Azienda operante in Val Fontanabuona ricerca un operaio addetto all'assemblaggio di materie plastiche . Le mansioni saranno quelle di conduzione di macchinari per la lavorazione plastica, assemblaggio manuale e confezionamento dei prodotti finiti. Movimentazione manuale dei carichi e stoccaggio finale delle merci in magazzino . E' richiesta buona manualità nell'assemblaggio , velocità nel confezionamento, capacità di presidio fisso in piedi a bordo macchina, capacità di effettuare lavori pesanti, possesso di un mezzo proprio ed è preferibile esperienza nella mansione . Il contratto previsto è un tempo determinato di 6 mesi full time .",
-   "punteggio": 54,
-   "dettaglio": {
-    "ambito": "Marketing digitale e SEO",
-    "pro": [
-     "marketing digitale e seo"
-    ],
-    "contro": [
-     "tempo determinato"
-    ],
-    "contratto": "determinato",
-    "remoto": false
-   },
-   "contratto": "determinato",
    "remoto": false,
    "secondario": true,
    "visto_la_prima_volta": "2026-09-06",
