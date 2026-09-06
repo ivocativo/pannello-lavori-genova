@@ -47,7 +47,7 @@ SOGLIA_MARGINALE = 25
 
 # ---------------------------------------------------------------- utilita' ---
 
-def http(url, data=None, headers=None, timeout=40):
+def http(url, data=None, headers=None, timeout=90):
     h = {"User-Agent": UA, "Accept": "application/json, text/html;q=0.9,*/*;q=0.8",
          "Accept-Language": "it-IT,it;q=0.9,en;q=0.8"}
     if headers:
@@ -384,9 +384,22 @@ def fonte_inpa():
 
 @fonte("Formazione Lavoro Regione Liguria")
 def fonte_liguria():
-    url = ("https://flguest.regione.liguria.it/services/api/DomandeLavoro"
-           "?dataByOption=all&idProgramma=5&pageNumber=1&pageSize=500&stato=3")
-    j = http_json(url)
+    # Dal computer di casa risponde in 3 secondi, dai server di GitHub e' molto
+    # piu' lenta e la prima chiamata va spesso in timeout: si riprova, con
+    # pagine piu' piccole a ogni tentativo.
+    ultimo_errore = None
+    j = None
+    for tentativo, (pagina, attesa) in enumerate([(500, 90), (300, 90), (150, 60)]):
+        url = ("https://flguest.regione.liguria.it/services/api/DomandeLavoro"
+               "?dataByOption=all&idProgramma=5&pageNumber=1&pageSize=%d&stato=3" % pagina)
+        try:
+            j = http_json(url)
+            break
+        except Exception as e:
+            ultimo_errore = e
+            time.sleep(3 * (tentativo + 1))
+    if j is None:
+        raise ultimo_errore
     out = []
     for x in j.get("items", []):
         if (x.get("provincia") or "").upper() != "GE":
