@@ -1,0 +1,62 @@
+name: Aggiorna il pannello lavoro
+
+on:
+  schedule:
+    # lunedi' e giovedi' alle 6:00 UTC (le 8:00 in Italia d'estate, le 7:00 d'inverno)
+    - cron: "0 6 * * 1,4"
+  workflow_dispatch:        # permette anche di lanciarlo a mano dal sito di GitHub
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  aggiorna:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Ricostruisci config.json dalle credenziali riservate
+        env:
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+        run: python prepara_config.py
+
+      - name: Raccogli gli annunci
+        env:
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+        run: python raccogli.py
+
+      - name: Genera il sito
+        run: python costruisci_sito.py
+
+      - name: Salva lo storico aggiornato
+        run: |
+          git config user.name "pannello-lavoro"
+          git config user.email "actions@github.com"
+          git add sito/index.html dati.json storico.json
+          git diff --staged --quiet || git commit -m "Aggiornamento automatico $(date +%d/%m/%Y)"
+          git push
+
+      - name: Pubblica il sito
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: sito
+
+      - uses: actions/deploy-pages@v4
+
+      - name: Manda il riepilogo (solo il lunedi')
+        if: ${{ github.event_name == 'schedule' }}
+        env:
+          EMAIL_MITTENTE: ${{ secrets.EMAIL_MITTENTE }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_DESTINATARIO: ${{ secrets.EMAIL_DESTINATARIO }}
+          INDIRIZZO_PANNELLO: ${{ secrets.INDIRIZZO_PANNELLO }}
+        run: |
+          if [ "$(date +%u)" = "1" ]; then python manda_email.py; else echo "Non e' lunedi': niente email."; fi

@@ -1,0 +1,51 @@
+{
+ "_avviso": "Modello senza dati personali ne' credenziali: questo puo' stare online. Le chiavi vere arrivano dai secrets di GitHub, il profilo reale sta in config.json che resta sul computer.",
+ "adzuna": {
+  "app_id": "",
+  "app_key": "",
+  "paese": "it",
+  "endpoint": "https://api.adzuna.com/v1/api/jobs/it/search/1",
+  "parametri_consigliati": {
+   "where": "Genova",
+   "distance": 30,
+   "results_per_page": 50,
+   "max_days_old": 45,
+   "sort_by": "date"
+  },
+  "nota_freschezza": "Adzuna conserva anche annunci vecchi: usare sempre max_days_old."
+ },
+ "profilo_candidata": {
+  "_nota": "Valori di esempio. Il profilo vero sta in config.json, che non viene pubblicato.",
+  "zona": [
+   "Genova",
+   "provincia di Genova",
+   "lavoro da remoto"
+  ],
+  "pendolarismo_max_minuti": 45,
+  "orario": "solo full time",
+  "turni": "mai",
+  "contratti_accettati": [
+   "indeterminato",
+   "apprendistato"
+  ],
+  "ral_minima": 0,
+  "escludere_sempre": [
+   "stage",
+   "tirocinio"
+  ],
+  "escludere_come_ruolo_principale": [
+   "QA e testing",
+   "supporto applicativo e help desk"
+  ],
+  "pesi_ambiti": {
+   "analista funzionale / business analyst": 10,
+   "project management / PMO": 10,
+   "amministrativo e organizzativo": 10,
+   "e-commerce": 8,
+   "marketing digitale e SEO": 8,
+   "comunicazione e social": 8,
+   "settore pubblico (concorso)": 8,
+   "commerciale e contatto cliente": 5
+  }
+ }
+}

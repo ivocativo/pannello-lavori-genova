@@ -1,0 +1,120 @@
+{
+  "_descrizione": "Fonti aziendali per il pannello lavoro Genova. Verificate una per una il 2026-09-06 provandole davvero, non a memoria.",
+  "_legenda": {
+    "pronta_api": "restituisce dati strutturati, nessuna chiave: la fonte migliore",
+    "pronta_html": "gli annunci sono dentro la pagina e si leggono direttamente",
+    "serve_browser": "leggibile solo simulando un browser vero: fattibile ma piu' costoso",
+    "da_approfondire": "il sito risponde ma gli annunci non sono raggiungibili",
+    "bloccata": "rifiuta gli accessi automatici o non pubblica posizioni"
+  },
+
+  "pronte_api": [
+    {
+      "azienda": "Leonardo",
+      "sede": "Genova Fiumara e Sestri",
+      "sistema": "Workday",
+      "metodo": "POST",
+      "endpoint": "https://leonardocompany.wd3.myworkdayjobs.com/wday/cxs/leonardocompany/LeonardoCareerSite/jobs",
+      "body": {"appliedFacets": {}, "limit": 20, "offset": 0, "searchText": "Genova"},
+      "verificato_2026_09_06": "42 posizioni a Genova, tra cui 'CYS - Business Analyst - CIE' e 'CYS - Project Engineering Manager - IDG'",
+      "nota": "La fonte piu' ricca della lista. Filtrare via gli stage."
+    },
+    {
+      "azienda": "MSC Crociere",
+      "sede": "Genova (personale di terra)",
+      "sistema": "Phenom People",
+      "metodo": "POST",
+      "endpoint": "https://careers.msccruises.com/widgets",
+      "body": {"lang": "en_gb", "deviceType": "desktop", "country": "gb", "pageName": "search-results", "ddoKey": "refineSearch", "from": 0, "jobs": true, "counts": true, "size": 20, "siteType": "external", "global": true, "selected_fields": {"city": ["Genoa"]}, "locationData": {}},
+      "verificato_2026_09_06": "14 posizioni a Genova, tra cui 'Consumption and Order Control Analyst', 'Senior Internal Auditor', 'AI & Privacy Governance Manager', 'Legal Claims Manager'. 47 in tutta Italia, 432 nel mondo.",
+      "nota": "Il sito pubblico www.msccruises.com blocca gli accessi automatici, ma il sito carriere no. Senza filtro citta' escono soprattutto ruoli di bordo (chef, cabin crew): filtrare sempre per citta' o per Italia."
+    },
+    {
+      "azienda": "Costa Crociere (gruppo Carnival)",
+      "sede": "Genova (sede centrale, ~1500 persone di terra)",
+      "sistema": "Oracle Recruiting Cloud",
+      "metodo": "GET",
+      "endpoint": "https://eicl.fa.em5.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitions?onlyData=true&expand=requisitionList&finder=findReqs;siteNumber=CX_1,limit=50,sortBy=POSTING_DATES_DESC",
+      "verificato_2026_09_06": "216 posizioni nel gruppo, filtrando per Italia esce 'Business Platform Project Manager' a GENOVA e 'Finance Junior Accountant' a GENOVA",
+      "nota": "Il parametro siteNumber sembra ignorato: restituisce comunque tutto il gruppo Carnival. Vanno scaricate tutte le pagine e filtrate per PrimaryLocationCountry = IT. Il portale pubblico e' career.costacrociere.it, sezione 'shoreside'."
+    },
+    {
+      "azienda": "Gruppo SIGLA (gruppo Relatech)",
+      "sede": "Genova",
+      "sistema": "Allibo Joblink",
+      "metodo": "GET",
+      "endpoint": "https://joblink.allibo.com/ats2/Widget/connector.aspx?DM=pZqR9gejGdaz2TOZe3wU6EQfINc0sLfaHcZDTWP2%2BxA%3D",
+      "verificato_2026_09_06": "risponde in JSON ma segnala 'Piattaforma in manutenzione'",
+      "nota": "Indirizzo corretto, formato strutturato. Da riprovare piu' avanti."
+    }
+  ],
+
+  "pronte_html": [
+    {
+      "azienda": "RINA",
+      "sede": "Genova (sede centrale)",
+      "sistema": "SAP SuccessFactors",
+      "url": "https://careers.rina.org/search/?q=&locationsearch=Genova",
+      "verificato_2026_09_06": "annunci leggibili nella pagina: 'Genoa Junior Stability Plan Approval Engineer', 'Cybersecurity Manager', 'Certification Italy Innovation Project Business Development Manager', 'Junior Site Operations Manager'",
+      "nota": "Il sito www.rina.org non ha una sezione posizioni: quella vera e' su careers.rina.org. Cambiando locationsearch si filtra la citta'."
+    },
+    {"azienda": "Circle Group", "sede": "Genova", "url": "https://www.circlegroup.eu/work-with-us/", "verificato_2026_09_06": "17 titoli leggibili, tra cui 'STAGE PROJECT MANAGER & ANALYST'", "nota": "Molto pertinente. Diverse posizioni sono stage, da escludere."},
+    {"azienda": "Gruppo FOS", "sede": "Genova (quotata)", "url": "https://www.gruppofos.it/lavora-noi/", "verificato_2026_09_06": "pagina ricca di annunci; su Adzuna compare un 'Analista funzionale (Genova)'", "nota": "Scoperta grazie ad Adzuna. Azienda informatica genovese molto in linea."},
+    {"azienda": "NTT Data Italia", "sede": "anche Genova", "url": "https://it.nttdata.com/career/posizioni-aperte", "verificato_2026_09_06": "11 annunci leggibili", "nota": "Molte posizioni 'Multilocations': verificare la sede."},
+    {"azienda": "Softjam", "sede": "Genova", "url": "https://www.softjam.it/careers/", "verificato_2026_09_06": "7 annunci leggibili", "nota": "Profili tecnici."},
+    {"azienda": "Sogegross / Basko", "sede": "Genova", "sistema": "InterviewWeb (Zucchetti)", "url": "https://sogegross.intervieweb.it/app.php?module=career&lang=it", "verificato_2026_09_06": "10 annunci, tra cui 'HR Specialist'", "nota": "Prevalgono addetti vendita e stage."},
+    {"azienda": "Grendi", "sede": "Genova", "url": "https://www.grendi.it/lavora-con-noi/", "verificato_2026_09_06": "3 annunci leggibili"},
+    {"azienda": "Liguria Digitale", "sede": "Genova Erzelli", "url": "https://trasparenza.liguriadigitale.it/trasparenza/selezione-del-personale/avvisi-di-selezione.html", "verificato_2026_09_06": "1 avviso aperto (IT Manager, scadenza 28/09/2026)"}
+  ],
+
+  "serve_browser": [
+    {
+      "azienda": "Fincantieri",
+      "sede": "Genova, Sestri Levante, Riva Trigoso",
+      "sistema": "Lumesse / recruitmentplatform.com",
+      "url": "https://www.fincantieri.com/it/persone/lavora-con-noi/posizioni-aperte/",
+      "verificato_2026_09_06": "aprendo la pagina con un browser vero si vedono gli annunci, con filtro per regione (Liguria) e per funzione (Project Management, Comunicazione e Marketing, ICT). Esempio: 'PROJECT COST CONTROLLER - PM TEAM' a GENOVA.",
+      "nota": "Provato a leggerla senza browser in tre modi diversi (componente lista, sessione con cookie, feed sindacato): restituisce sempre involucri vuoti. Per includerla serve far girare un browser automatico, che appesantisce il robot settimanale. Da valutare."
+    }
+  ],
+
+  "da_approfondire": [
+    {"azienda": "Ansaldo Energia", "url": "https://www.ansaldoenergia.com/people"},
+    {"azienda": "Iren", "url": "https://www.gruppoiren.it/it/carriere.html", "nota": "Rimanda a LinkedIn, non utilizzabile."},
+    {"azienda": "Hitachi Rail", "url": "https://www.hitachirail.com/careers/vacancies/", "nota": "Stabilimento a Genova Sestri. Annunci caricati via JavaScript."},
+    {"azienda": "Engineering", "url": "https://www.eng.it/careers"},
+    {"azienda": "IIT - Istituto Italiano di Tecnologia", "url": "https://www.iit.it/people", "nota": "Assume anche profili amministrativi e di comunicazione: vale un secondo tentativo."},
+    {"azienda": "ETT (gruppo Deda)", "url": "https://www.deda.com/careers", "nota": "ETT e' genovese e lavora su digitale e comunicazione."},
+    {"azienda": "Esaote", "url": "https://www.esaote.com/it-IT/esaote-group/persone/posizioni-aperte/", "nota": "Solo autocandidature, nessun elenco."},
+    {"azienda": "Aitek", "url": "https://www.aitek.it/lavora-con-noi/"}
+  ],
+
+  "coperte_da_altre_fonti": [
+    {"azienda": "Grandi Navi Veloci", "nota": "Il loro widget Allibo serve solo per le autocandidature, non pubblica un elenco. Ma gli annunci GNV compaiono su Adzuna (verificato: 'STAGE BUSINESS DEVELOPMENT ANALYST', Genova)."},
+    {"azienda": "AMT e AMIU Genova", "nota": "Partecipate del Comune: le selezioni escono su InPA."},
+    {"azienda": "Comune di Genova, Regione Liguria, ASL, ospedali, Universita', Autorita' Portuale", "nota": "Tutti su InPA per obbligo di legge."}
+  ],
+
+  "bloccate": [
+    {"azienda": "Coop Liguria, Boero, Duferco", "nota": "Indirizzi internet non risolti: domini da verificare."},
+    {"azienda": "Costa Edutainment (Acquario)", "nota": "Sezione carriere non individuata."},
+    {"azienda": "Ansaldo Nucleare", "nota": "Sito in errore 503 al momento della verifica."},
+    {"azienda": "Banca Passadore, Gruppo Spinelli, Ignazio Messina, Talea Group", "nota": "Nessuna sezione carriere individuata."}
+  ],
+
+  "riepilogo_2026_09_06": {
+    "aziende_provate": 32,
+    "pronte_api": 4,
+    "pronte_html": 8,
+    "serve_browser": 1,
+    "posizioni_genovesi_gia_raggiungibili": "42 Leonardo + 14 MSC + 17 Circle + 11 NTT Data + 10 Sogegross + 7 Softjam + RINA + Gruppo FOS + 3 Grendi + 2 Costa + 1 Liguria Digitale",
+    "piu_in_linea_col_profilo": [
+      "Leonardo - CYS Business Analyst (Genova Fiumara)",
+      "Costa Crociere - Business Platform Project Manager (Genova)",
+      "MSC - Consumption and Order Control Analyst (Genova)",
+      "Circle Group - Business Analyst e Project Manager (Genova, via Adzuna)",
+      "Gruppo FOS - Analista funzionale (Genova, via Adzuna)",
+      "agap2 Italia - Business analyst (Genova, via Adzuna)"
+    ]
+  }
+}

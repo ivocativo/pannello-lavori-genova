@@ -1,0 +1,7 @@
+# contiene le chiavi Adzuna: non deve mai finire online
+config.json
+anteprima_email.html
+__pycache__/
+
+# il curriculum contiene dati personali: resta sul computer
+*.docx
