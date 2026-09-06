@@ -112,6 +112,56 @@ def giorni_a(iso):
     return None if g is None else -g
 
 
+
+# ----------------------------------------------------------------- stipendio --
+# Pochi annunci dichiarano quanto pagano: circa uno su dieci. Quel poco che
+# c'e' va comunque raccolto, sia dai campi delle fonti sia dal testo.
+
+RX_RAL = re.compile(
+    r"(?:RAL|R\.A\.L\.|retribuzione(?:\s+annua)?(?:\s+lorda)?|stipendio|"
+    r"compenso annuo|pacchetto retributivo)"
+    r"[^.\n]{0,50}?"
+    r"(?:€|EUR|euro)?\s*"
+    r"(\d{1,3}(?:[.,\s]\d{3})+|\d{2,3}\s*(?:k|mila))",
+    re.I)
+
+
+def _numero(pezzo):
+    p = senza_accenti(pezzo).replace(" ", "")
+    if p.endswith("k") or p.endswith("mila"):
+        n = re.sub(r"[^0-9]", "", p)
+        return int(n) * 1000 if n else None
+    n = re.sub(r"[^0-9]", "", p)
+    if not n:
+        return None
+    v = int(n)
+    return v if 10000 <= v <= 200000 else None
+
+
+def stipendio_da_testo(testo):
+    """Cerca una cifra annua lorda nel testo dell'annuncio."""
+    if not testo:
+        return None, None
+    valori = []
+    for m in RX_RAL.finditer(testo):
+        v = _numero(m.group(1))
+        if v:
+            valori.append(v)
+    if not valori:
+        return None, None
+    return min(valori), (max(valori) if max(valori) != min(valori) else None)
+
+
+def aggiungi_stipendio(ann):
+    """Riempie stipendio_min/max: prima quello dichiarato dalla fonte, poi il testo."""
+    if ann.get("stipendio_min"):
+        return
+    mn, mx = stipendio_da_testo(" ".join(filter(None, [ann.get("titolo"),
+                                                       ann.get("descrizione")])))
+    ann["stipendio_min"] = mn
+    ann["stipendio_max"] = mx
+
+
 # ------------------------------------------------------------- punteggiatura --
 
 AMBITI = [
@@ -376,6 +426,8 @@ def fonte_inpa():
             "pubblicato": data_iso(c.get("dataPubblicazione")),
             "scadenza": data_iso(c.get("dataScadenza")),
             "posti": c.get("numPosti"),
+            "stipendio_min": c.get("salaryMin") or None,
+            "stipendio_max": c.get("salaryMax") or None,
             "descrizione": pulisci(" ".join(filter(None, [
                 ufficiale, c.get("descrizioneBreve"), c.get("descrizione")])))[:2500],
         })
@@ -437,8 +489,11 @@ def fonte_adzuna():
             if rid in visti:
                 continue
             visti.add(rid)
+            stimato = bool(r.get("salary_is_predicted") in (1, "1", True))
             out.append({
                 "id": "adzuna-" + rid,
+                "stipendio_min": None if stimato else r.get("salary_min"),
+                "stipendio_max": None if stimato else r.get("salary_max"),
                 "titolo": pulisci(r.get("title")),
                 "ente": pulisci((r.get("company") or {}).get("display_name")) or "Azienda non indicata",
                 "luogo": pulisci((r.get("location") or {}).get("display_name")),
@@ -589,6 +644,213 @@ def fonte_rina():
     return out
 
 
+# ------------------------------------------- aziende genovesi, pagina per pagina --
+# Queste sei non hanno un canale dati: si legge la pagina cosi' com'e'. Se un
+# giorno rifanno il sito il pezzo smette di funzionare, ma il pannello lo dice
+# in cima invece di far finta di niente.
+
+CITTA = re.compile(
+    r"\b(genova|genoa|milano|roma|torino|trieste|napoli|bologna|firenze|padova|"
+    r"verona|bari|palermo|catania|venezia|brescia|marina di carrara|la spezia|"
+    r"savona|imperia|chiavari|rapallo|sestri|arenzano|busalla)\b", re.I)
+
+
+def sede_da_testo(testo, predefinita="sede da verificare"):
+    m = CITTA.search(testo or "")
+    return m.group(0).title() if m else predefinita
+
+
+def in_zona(testo):
+    """Vero se il testo parla di Genova o di lavoro da remoto."""
+    t = senza_accenti(testo or "")
+    return ("genova" in t or "genoa" in t or "remot" in t or "ibrid" in t
+            or "smart working" in t)
+
+
+@fonte("Circle Group")
+def fonte_circle():
+    h = http("https://www.circlegroup.eu/work-with-us/")
+    out = []
+    # I testi delle posizioni sono lunghi: cercare titolo e corpo con una sola
+    # espressione limitata a 2500 caratteri non trovava nulla. Si taglia sui
+    # titoli e si guarda dentro ogni pezzo.
+    for blocco in re.split(r"(?=<h3)", h)[1:]:
+        tit = re.match(r"<h3[^>]*>\s*<a[^>]*>(.*?)</a>\s*</h3>", blocco, re.S | re.I)
+        if not tit:
+            continue
+        titolo = pulisci(tit.group(1))
+        corpo = pulisci(blocco[tit.end():])[:1800]
+        if not titolo or len(titolo) < 5 or len(titolo) > 95:
+            continue
+        if not re.search(r"[A-Za-z]{3}", titolo):
+            continue
+        out.append({
+            "id": "circle-" + re.sub(r"\W+", "", senza_accenti(titolo))[:32],
+            "titolo": titolo,
+            "ente": "Circle Group",
+            "luogo": sede_da_testo(corpo, "Genova"),
+            "settore": "privato",
+            "fonte": "Circle Group",
+            "url": "https://www.circlegroup.eu/work-with-us/",
+            "pubblicato": None, "scadenza": None,
+            "descrizione": corpo,
+        })
+    return out
+
+
+@fonte("NTT Data Italia")
+def fonte_nttdata():
+    h = http("https://it.nttdata.com/career/posizioni-aperte")
+    out = []
+    for blocco in re.split(r'(?=<a\s+href="[^"]*"[^>]*class="search-result row job-detail-link")',
+                           h)[1:]:
+        blocco = blocco[:2500]
+        href = re.search(r'<a\s+href="([^"]+)"', blocco)
+        titoli = re.findall(r'is-h5[^>]*>(.*?)</p>', blocco, re.S)
+        piccoli = re.findall(r'is-small[^>]*>(.*?)</p>', blocco, re.S)
+        if not href or not titoli:
+            continue
+        m = href
+        titolo = pulisci(titoli[0])
+        luogo = pulisci(piccoli[0]) if piccoli else ""
+        area = pulisci(piccoli[1]) if len(piccoli) > 1 else ""
+        if not titolo:
+            continue
+        # "Multilocations" vuol dire piu' sedi possibili: si tiene ma si dice
+        multi = "multilocation" in senza_accenti(luogo)
+        if not multi and not in_zona(luogo):
+            continue
+        out.append({
+            "id": "ntt-" + re.sub(r"\W+", "", href.group(1))[-28:],
+            "titolo": titolo,
+            "ente": "NTT Data Italia",
+            "luogo": "piu' sedi, da verificare" if multi else luogo,
+            "settore": "privato",
+            "fonte": "NTT Data",
+            "url": urllib.parse.urljoin("https://it.nttdata.com/", href.group(1)),
+            "pubblicato": None, "scadenza": None,
+            "descrizione": " ".join([titolo, area, luogo]),
+        })
+    return out
+
+
+@fonte("Softjam")
+def fonte_softjam():
+    h = http("https://www.softjam.it/careers/")
+    out = []
+    for m in re.finditer(
+            r'<article[^>]*data-link="([^"]+)"[^>]*>.*?'
+            r'careers-title">(.*?)</h3>.*?'
+            r'careers-location"><strong>(.*?)</strong>', h, re.S | re.I):
+        titolo, luogo = pulisci(m.group(2)), pulisci(m.group(3))
+        if not titolo or not in_zona(luogo):
+            continue
+        out.append({
+            "id": "softjam-" + re.sub(r"\W+", "", m.group(1))[-28:],
+            "titolo": titolo, "ente": "Softjam", "luogo": luogo,
+            "settore": "privato", "fonte": "Softjam", "url": m.group(1),
+            "pubblicato": None, "scadenza": None,
+            "descrizione": titolo + " " + luogo,
+        })
+    return out
+
+
+@fonte("Sogegross / Basko")
+def fonte_sogegross():
+    h = http("https://sogegross.intervieweb.it/app.php?module=career&lang=it")
+    out = []
+    # La pagina pesa mezzo megabyte: cercare con un'unica espressione su tutto
+    # il documento la mandava in stallo. Si taglia prima in blocchi, uno per
+    # annuncio, e si cerca dentro ciascuno.
+    for blocco in re.split(r'vacancy__title"', h)[1:]:
+        blocco = blocco[:2500]
+        link = re.search(r'<a href="([^"]+)"', blocco)
+        tit = re.search(r'<h3>\s*(.*?)\s*</h3>', blocco, re.S)
+        if not link or not tit:
+            continue
+        m = link
+        titolo = pulisci(tit.group(1))
+        corpo = pulisci(blocco)[:700]
+        if not titolo:
+            continue
+        if not in_zona(titolo + " " + corpo):
+            continue
+        out.append({
+            "id": "sogegross-" + re.sub(r"\W+", "", m.group(1))[-28:],
+            "titolo": titolo, "ente": "Sogegross / Basko",
+            "luogo": sede_da_testo(titolo + " " + corpo, "Genova"),
+            "settore": "privato", "fonte": "Sogegross", "url": m.group(1),
+            "pubblicato": None, "scadenza": None,
+            "descrizione": titolo + " " + corpo,
+        })
+    return out
+
+
+@fonte("Grendi")
+def fonte_grendi():
+    h = http("https://www.grendi.it/lavora-con-noi/")
+    out = []
+    for blocco in re.split(r"(?=e-loop-item e-loop-item-)", h)[1:]:
+        link = re.search(r'href="(https://www\.grendi\.it/posizioni-aperte/[^"]+)"', blocco)
+        if not link:
+            continue
+        titoli = [pulisci(t[1]) for t in re.findall(r"<(h[1-4])[^>]*>(.*?)</\1>",
+                                                    blocco, re.S | re.I)]
+        titoli = [t for t in titoli if t]
+        if not titoli:
+            continue
+        # nel loro impaginato il primo titolo e' la citta', il secondo il ruolo
+        luogo = titoli[0] if CITTA.fullmatch(titoli[0] or "") else ""
+        ruolo = next((t for t in titoli if t != luogo), titoli[-1])
+        if not luogo:
+            luogo = sede_da_testo(blocco, "")
+        if not in_zona(luogo + " " + ruolo):
+            continue
+        out.append({
+            "id": "grendi-" + re.sub(r"\W+", "", link.group(1))[-28:],
+            "titolo": ruolo, "ente": "Grendi", "luogo": luogo or "Genova",
+            "settore": "privato", "fonte": "Grendi", "url": link.group(1),
+            "pubblicato": None, "scadenza": None,
+            "descrizione": ruolo + " " + luogo,
+        })
+    return out
+
+
+MESI = {"gennaio": "01", "febbraio": "02", "marzo": "03", "aprile": "04",
+        "maggio": "05", "giugno": "06", "luglio": "07", "agosto": "08",
+        "settembre": "09", "ottobre": "10", "novembre": "11", "dicembre": "12"}
+
+
+@fonte("Liguria Digitale")
+def fonte_liguria_digitale():
+    url = ("https://trasparenza.liguriadigitale.it/trasparenza/"
+           "selezione-del-personale/avvisi-di-selezione.html")
+    h = http(url)
+    out = []
+    for m in re.finditer(r"<strong>([^<]{6,110})</strong>(.{0,600}?)"
+                         r"(?=<strong>|\Z)", h, re.S | re.I):
+        titolo = pulisci(m.group(1))
+        corpo = m.group(2)
+        if not re.search(r"(?i)rif\.|selezione|ricerca", titolo):
+            continue
+        sc = re.search(r"(?i)scadenza[^.]{0,80}?(\d{1,2})\s+([a-zà]+)\s+(\d{4})", corpo)
+        scadenza = None
+        if sc and sc.group(2).lower() in MESI:
+            scadenza = "%s-%s-%02d" % (sc.group(3), MESI[sc.group(2).lower()],
+                                       int(sc.group(1)))
+        if scadenza and (giorni_a(scadenza) or 0) < 0:
+            continue          # avviso gia' scaduto
+        out.append({
+            "id": "ligdig-" + re.sub(r"\W+", "", senza_accenti(titolo))[:32],
+            "titolo": re.sub(r"\s*-\s*Rif\..*$", "", titolo, flags=re.I),
+            "ente": "Liguria Digitale", "luogo": "Genova",
+            "settore": "privato", "fonte": "Liguria Digitale", "url": url,
+            "pubblicato": None, "scadenza": scadenza,
+            "descrizione": titolo + " " + pulisci(corpo)[:600],
+        })
+    return out
+
+
 # -------------------------------------------------------------- costruzione --
 
 def chiave_dedup(a):
@@ -607,9 +869,11 @@ def chiave_dedup(a):
 def main():
     print("Raccolta in corso...\n")
     funzioni = [fonte_inpa, fonte_liguria, fonte_adzuna, fonte_leonardo,
-                fonte_msc, fonte_costa, fonte_rina]
+                fonte_msc, fonte_costa, fonte_rina,
+                fonte_circle, fonte_nttdata, fonte_softjam,
+                fonte_sogegross, fonte_grendi, fonte_liguria_digitale]
     grezzi = []
-    with ThreadPoolExecutor(max_workers=7) as ex:
+    with ThreadPoolExecutor(max_workers=8) as ex:
         for res in ex.map(lambda f: f(), funzioni):
             grezzi.extend(res)
 
@@ -637,6 +901,18 @@ def main():
             a["escluso_perche"] = motivo_escl
             esclusi.append(a)
             continue
+        aggiungi_stipendio(a)
+        for chiave in ("stipendio_min", "stipendio_max"):
+            v = a.get(chiave)
+            try:
+                v = int(float(v)) if v else None
+            except (TypeError, ValueError):
+                v = None
+            a[chiave] = v if (v and 8000 <= v <= 250000) else None
+        if a.get("stipendio_min"):
+            dett = dett or {}
+            dett.setdefault("pro", []).append(
+                "stipendio dichiarato: %s euro" % format(a["stipendio_min"], ",d").replace(",", "."))
         a["punteggio"] = punti
         a["dettaglio"] = dett
         a["contratto"] = (dett or {}).get("contratto", "non indicato")

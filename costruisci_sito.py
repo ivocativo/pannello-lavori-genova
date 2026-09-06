@@ -78,8 +78,27 @@ HTML = """<!doctype html>
   select{padding:7px 10px; border:1px solid var(--bordo); border-radius:999px;
     background:var(--carta); color:var(--testo); font-size:13px; font-family:inherit}
 
-  h2.sezione{font-size:16px; margin:26px 0 10px; display:flex; align-items:center; gap:9px}
-  h2.sezione .conta{font-size:12.5px; color:var(--tenue); font-weight:400}
+  /* le quattro sezioni come schede selezionabili, non piu' una in fila all'altra */
+  .schede{display:flex; gap:6px; margin-top:10px; overflow-x:auto;
+          scrollbar-width:none; -ms-overflow-style:none; padding-bottom:2px}
+  .schede::-webkit-scrollbar{display:none}
+  button.s{flex:1 1 auto; white-space:nowrap; background:transparent; border:0;
+           border-bottom:2px solid transparent; color:var(--tenue); padding:8px 10px 7px;
+           font-size:13.5px; font-family:inherit; cursor:pointer; border-radius:6px 6px 0 0}
+  button.s:hover{color:var(--testo)}
+  button.s[aria-selected="true"]{color:var(--blu); border-bottom-color:var(--blu);
+           font-weight:600; background:var(--blu-chiaro)}
+  .badge{display:inline-block; min-width:20px; padding:1px 6px; margin-left:4px;
+         border-radius:999px; background:var(--bordo); color:var(--tenue);
+         font-size:11px; font-weight:600; vertical-align:1px}
+  button.s[aria-selected="true"] .badge{background:var(--blu); color:var(--carta)}
+  #pannelli{touch-action:pan-y}
+  .pannello{animation:entra .18s ease-out}
+  @keyframes entra{from{opacity:0; transform:translateX(var(--da,10px))} to{opacity:1; transform:none}}
+  .nota{color:var(--tenue); font-size:12.5px; margin:2px 0 14px; line-height:1.45}
+  .suggerimento{color:var(--tenue); font-size:11.5px; text-align:center;
+                margin:18px 0 0; opacity:.75}
+  @media(hover:hover){.suggerimento{display:none}}
 
   .scheda{background:var(--carta); border:1px solid var(--bordo); border-radius:12px;
           padding:14px 16px; margin-bottom:10px; box-shadow:var(--ombra); position:relative}
@@ -101,6 +120,7 @@ HTML = """<!doctype html>
   .tag.urgente{background:var(--rosso-chiaro); color:var(--rosso); border-color:transparent; font-weight:600}
   .tag.presto{background:var(--ambra-chiaro); color:var(--ambra); border-color:transparent; font-weight:600}
   .tag.remoto{background:var(--blu-chiaro); color:var(--blu); border-color:transparent}
+  .tag.soldi{background:var(--verde-chiaro); color:var(--verde); border-color:transparent; font-weight:600}
   .perche{font-size:12.5px; color:var(--tenue); margin-top:8px; line-height:1.45}
   .perche b{color:var(--verde); font-weight:600}
   .perche i{color:var(--ambra); font-style:normal; font-weight:600}
@@ -132,6 +152,8 @@ HTML = """<!doctype html>
     .filtri select{flex:1 1 46%; min-width:0; max-width:100%}
     .filtri button.f{flex:0 1 auto; font-size:12.5px; padding:6px 11px}
     .azioni button.a{flex:1 1 auto; text-align:center}
+    button.s{padding:8px 6px 7px; font-size:12.5px}
+    .badge{min-width:18px; padding:1px 5px; margin-left:3px; font-size:10.5px}
     a.vai{margin-left:0; width:100%; padding-top:4px}
   }
 </style>
@@ -161,6 +183,7 @@ __AVVISO_FONTI__
     <button class="f" id="f-interessa" aria-pressed="false">Mi interessa</button>
     <select id="ordina" aria-label="Ordina">
       <option value="punteggio">Ordina per compatibilit&agrave;</option>
+      <option value="stipendio">Ordina per stipendio</option>
       <option value="data">Ordina per data</option>
       <option value="scadenza">Ordina per scadenza</option>
     </select>
@@ -172,24 +195,37 @@ __AVVISO_FONTI__
     </select>
     <button class="f" id="f-scartati" aria-pressed="false">Mostra scartati</button>
   </div>
+  <div class="schede" role="tablist" aria-label="Sezioni">
+    <button class="s" role="tab" data-sez="privati" aria-selected="true">
+      &#127970; Privati <span class="badge" id="conta-privati">0</span></button>
+    <button class="s" role="tab" data-sez="pubblici" aria-selected="false">
+      &#127963; Concorsi <span class="badge" id="conta-pubblici">0</span></button>
+    <button class="s" role="tab" data-sez="determinati" aria-selected="false">
+      &#9203; A termine <span class="badge" id="conta-determinati">0</span></button>
+    <button class="s" role="tab" data-sez="marginali" aria-selected="false">
+      &#128269; Altri <span class="badge" id="conta-marginali">0</span></button>
+  </div>
 </div>
 
-<h2 class="sezione">&#127970; Offerte private <span class="conta" id="conta-privati"></span></h2>
-<div id="privati"></div>
+<div id="pannelli">
+  <section class="pannello" data-sez="privati" role="tabpanel">
+    <div id="privati"></div>
+  </section>
+  <section class="pannello" data-sez="pubblici" role="tabpanel" hidden>
+    <p class="nota">Bandi e concorsi pubblici aperti in provincia di Genova, ordinati per scadenza pi&ugrave; vicina quando scegli quell&rsquo;ordinamento.</p>
+    <div id="pubblici"></div>
+  </section>
+  <section class="pannello" data-sez="determinati" role="tabpanel" hidden>
+    <p class="nota">Contratti a tempo determinato e in somministrazione: tenuti fuori dalla lista principale, ma spesso sono la via d&rsquo;ingresso, soprattutto negli enti pubblici.</p>
+    <div id="determinati"></div>
+  </section>
+  <section class="pannello" data-sez="marginali" role="tabpanel" hidden>
+    <p class="nota">Annunci con punteggio sotto __SOGLIA__: raramente utili, ma restano consultabili.</p>
+    <div id="marginali"></div>
+  </section>
+</div>
 
-<h2 class="sezione">&#127963; Bandi e concorsi pubblici <span class="conta" id="conta-pubblici"></span></h2>
-<div id="pubblici"></div>
-
-<details class="gruppo" id="box-determinati">
-  <summary>Contratti a tempo determinato e in somministrazione (<span id="conta-determinati">0</span>)</summary>
-  <div id="determinati"></div>
-</details>
-
-<details class="gruppo" id="box-marginali">
-  <summary>Annunci meno pertinenti (<span id="conta-marginali">0</span>)</summary>
-  <p class="sottotitolo" style="margin:0 0 10px">Compaiono qui gli annunci con punteggio sotto __SOGLIA__: raramente utili, ma restano consultabili.</p>
-  <div id="marginali"></div>
-</details>
+<p class="suggerimento">Scorri a destra o a sinistra per cambiare sezione</p>
 
 <footer>
   <p><b>Come funziona il punteggio.</b> Da 0 a 100, calcolato sul curriculum caricato: conta il ruolo indicato nel titolo,
@@ -198,6 +234,9 @@ __AVVISO_FONTI__
   esperienza o una laurea tecnica.</p>
   <p><b>Cosa viene escluso in automatico:</b> stage e tirocini, lavoro su turni, ruoli di controllo qualit&agrave; del software
   e di assistenza tecnica. __ESCLUSI__ annunci sono stati scartati in questo aggiornamento.</p>
+  <p><b>Sullo stipendio.</b> Compare solo quando l&rsquo;annuncio lo dichiara: succede in circa un caso su cinque.
+  Ordinando per stipendio, gli annunci che non lo indicano finiscono in fondo &mdash; non vuol dire che paghino poco,
+  vuol dire che non lo scrivono.</p>
   <p><b>Fonti:</b> __FONTI__.</p>
   <p>I pulsanti <i>mi interessa</i>, <i>scartato</i> e <i>candidatura inviata</i> restano su questo dispositivo e non sono visibili a nessun altro.</p>
 </footer>
@@ -249,6 +288,12 @@ function scheda(a){
   if(d.remoto) tag += '<span class="tag remoto">remoto o ibrido</span>';
   if(a.contratto && a.contratto !== "non indicato") tag += '<span class="tag">' + esc(a.contratto) + '</span>';
   if(a.posti && a.posti > 1) tag += '<span class="tag">' + a.posti + ' posti</span>';
+  if(a.stipendio_min){
+    const mille = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    tag += '<span class="tag soldi">' + mille(a.stipendio_min) +
+           (a.stipendio_max && a.stipendio_max > a.stipendio_min ? "–" + mille(a.stipendio_max) : "") +
+           ' € lordi</span>';
+  }
   tag += '<span class="tag">' + esc(a.fonte) + '</span>';
 
   let perche = "";
@@ -299,6 +344,11 @@ function disegna(){
   });
 
   lista.sort((x, y) => {
+    if(ordine === "stipendio"){
+      const a = x.stipendio_min || -1, b = y.stipendio_min || -1;
+      if(a !== b) return b - a;              // chi non lo dichiara finisce in fondo
+      return y.punteggio - x.punteggio;
+    }
     if(ordine === "data") return (y.pubblicato || "") .localeCompare(x.pubblicato || "");
     if(ordine === "scadenza"){
       const a1 = x.scadenza || "9999", b1 = y.scadenza || "9999";
@@ -318,15 +368,79 @@ function disegna(){
   };
   scrivi("privati", privati, "Nessuna offerta privata con questi filtri.");
   scrivi("pubblici", pubblici, "Nessun concorso aperto con questi filtri.");
-  scrivi("determinati", determinati, "Nessuno.");
+  scrivi("determinati", determinati, "Nessun contratto a termine con questi filtri.");
   scrivi("marginali", marginali, "Nessuno.");
-  document.getElementById("conta-privati").textContent = privati.length + (privati.length === 1 ? " offerta" : " offerte");
-  document.getElementById("conta-pubblici").textContent = pubblici.length + (pubblici.length === 1 ? " bando" : " bandi");
+  document.getElementById("conta-privati").textContent = privati.length;
+  document.getElementById("conta-pubblici").textContent = pubblici.length;
   document.getElementById("conta-determinati").textContent = determinati.length;
   document.getElementById("conta-marginali").textContent = marginali.length;
-  document.getElementById("box-determinati").hidden = determinati.length === 0;
-  document.getElementById("box-marginali").hidden = marginali.length === 0;
 }
+
+/* ---- le quattro sezioni come schede: si cambia col dito o col tasto ---- */
+const SEZIONI = ["privati", "pubblici", "determinati", "marginali"];
+
+function sezioneAttiva(){
+  const b = document.querySelector('button.s[aria-selected="true"]');
+  return b ? b.getAttribute("data-sez") : "privati";
+}
+
+function mostraSezione(nome, versoDestra){
+  if(SEZIONI.indexOf(nome) === -1) nome = "privati";
+  document.querySelectorAll("button.s").forEach(b =>
+    b.setAttribute("aria-selected", String(b.getAttribute("data-sez") === nome)));
+  document.querySelectorAll(".pannello").forEach(p => {
+    const suo = p.getAttribute("data-sez") === nome;
+    p.hidden = !suo;
+    if(suo && versoDestra !== undefined){
+      p.style.setProperty("--da", versoDestra ? "14px" : "-14px");
+      p.style.animation = "none";
+      void p.offsetWidth;              // forza il riavvio dell'animazione
+      p.style.animation = "";
+    }
+  });
+  try { localStorage.setItem("lavoro-genova-sezione", nome); } catch(e){}
+  const attivo = document.querySelector('button.s[aria-selected="true"]');
+  if(attivo && attivo.scrollIntoView) attivo.scrollIntoView({block:"nearest", inline:"nearest"});
+}
+
+function spostaDi(passi){
+  const i = SEZIONI.indexOf(sezioneAttiva());
+  const nuovo = Math.min(SEZIONI.length - 1, Math.max(0, i + passi));
+  if(nuovo !== i) mostraSezione(SEZIONI[nuovo], passi > 0);
+}
+
+document.querySelector(".schede").addEventListener("click", e => {
+  const b = e.target.closest("button.s");
+  if(!b) return;
+  const i = SEZIONI.indexOf(b.getAttribute("data-sez"));
+  mostraSezione(b.getAttribute("data-sez"), i > SEZIONI.indexOf(sezioneAttiva()));
+});
+
+/* scorrimento col dito: solo se il gesto e' chiaramente orizzontale,
+   altrimenti si romperebbe lo scorrimento normale della pagina */
+(function(){
+  let x0 = null, y0 = null;
+  const zona = document.getElementById("pannelli");
+  zona.addEventListener("touchstart", e => {
+    if(e.touches.length !== 1) return;
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }, {passive:true});
+  zona.addEventListener("touchend", e => {
+    if(x0 === null) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - x0, dy = t.clientY - y0;
+    x0 = null;
+    if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.8){
+      spostaDi(dx < 0 ? 1 : -1);
+    }
+  }, {passive:true});
+})();
+
+document.addEventListener("keydown", e => {
+  if(e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  if(e.key === "ArrowRight") spostaDi(1);
+  if(e.key === "ArrowLeft") spostaDi(-1);
+});
 
 document.addEventListener("click", e => {
   const b = e.target.closest("button.a");
@@ -350,6 +464,9 @@ document.getElementById("cerca").addEventListener("input", disegna);
 document.getElementById("ordina").addEventListener("change", disegna);
 document.getElementById("soglia").addEventListener("change", disegna);
 disegna();
+let sezioneIniziale = "privati";
+try { sezioneIniziale = localStorage.getItem("lavoro-genova-sezione") || "privati"; } catch(e){}
+mostraSezione(sezioneIniziale);
 </script>
 </body>
 </html>
