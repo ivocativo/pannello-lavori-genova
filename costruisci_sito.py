@@ -12,8 +12,20 @@ DATI = json.load(io.open(os.path.join(QUI, "dati.json"), encoding="utf-8"))
 # mostrati in cima al pannello e quelli stampati a terminale coincidono
 SOGLIA = 25
 
-HTML = """<title>Lavoro Genova</title>
+HTML = """<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<!-- Senza questa riga i telefoni impaginano a 980 pixel e rimpiccioliscono
+     tutto: il pannello si consulta soprattutto da telefono, quindi serve. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<title>Lavoro Genova</title>
 <style>
+  html{-webkit-text-size-adjust:100%}
+  [hidden]{display:none !important}
+  img{max-width:100%}
   :root{
     --sfondo:#f6f7f9; --carta:#ffffff; --bordo:#e2e6eb; --testo:#1c2128;
     --tenue:#5c6773; --blu:#1f3864; --blu-chiaro:#eaeff7;
@@ -111,9 +123,20 @@ HTML = """<title>Lavoro Genova</title>
          color:var(--tenue); font-size:12px; line-height:1.6}
   footer code{background:var(--sfondo); padding:1px 5px; border-radius:4px; font-size:11px}
   @media(max-width:560px){
-    h1{font-size:22px} .dato{min-width:96px} .punteggio{flex-basis:38px; height:38px; font-size:14px}
+    h1{font-size:22px} .dato{min-width:88px; padding:8px 10px} .dato .n{font-size:19px}
+    .punteggio{flex-basis:38px; height:38px; font-size:14px}
+    body{padding:0 12px 56px}
+    /* su schermo stretto i comandi devono andare a capo, non uscire di lato */
+    .filtri{gap:5px}
+    .filtri input[type=search]{flex:1 1 100%; min-width:0}
+    .filtri select{flex:1 1 46%; min-width:0; max-width:100%}
+    .filtri button.f{flex:0 1 auto; font-size:12.5px; padding:6px 11px}
+    .azioni button.a{flex:1 1 auto; text-align:center}
+    a.vai{margin-left:0; width:100%; padding-top:4px}
   }
 </style>
+</head>
+<body>
 
 <div class="contenitore">
 <header>
@@ -328,6 +351,8 @@ document.getElementById("ordina").addEventListener("change", disegna);
 document.getElementById("soglia").addEventListener("change", disegna);
 disegna();
 </script>
+</body>
+</html>
 """
 
 
