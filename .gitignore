@@ -5,3 +5,7 @@ __pycache__/
 
 # il curriculum contiene dati personali: resta sul computer
 *.docx
+
+# file rigenerati a ogni esecuzione: li produce il robot, non vanno versionati
+dati.json
+sito/

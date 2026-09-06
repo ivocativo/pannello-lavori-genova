@@ -57,13 +57,13 @@ def http(url, data=None, headers=None, timeout=90):
     return r.read(3000000).decode(r.headers.get_content_charset() or "utf-8", "replace")
 
 
-def http_json(url, body=None, headers=None):
+def http_json(url, body=None, headers=None, timeout=90):
     data = None
     h = dict(headers or {})
     if body is not None:
         data = json.dumps(body).encode("utf-8")
         h["Content-Type"] = "application/json"
-    return json.loads(http(url, data=data, headers=h))
+    return json.loads(http(url, data=data, headers=h, timeout=timeout))
 
 
 def pulisci(testo):
@@ -387,19 +387,14 @@ def fonte_liguria():
     # Dal computer di casa risponde in 3 secondi, dai server di GitHub e' molto
     # piu' lenta e la prima chiamata va spesso in timeout: si riprova, con
     # pagine piu' piccole a ogni tentativo.
-    ultimo_errore = None
-    j = None
-    for tentativo, (pagina, attesa) in enumerate([(500, 90), (300, 90), (150, 60)]):
-        url = ("https://flguest.regione.liguria.it/services/api/DomandeLavoro"
-               "?dataByOption=all&idProgramma=5&pageNumber=1&pageSize=%d&stato=3" % pagina)
-        try:
-            j = http_json(url)
-            break
-        except Exception as e:
-            ultimo_errore = e
-            time.sleep(3 * (tentativo + 1))
-    if j is None:
-        raise ultimo_errore
+    # Da una connessione italiana risponde in 3 secondi; dai server di GitHub
+    # la connessione resta appesa fino al timeout, anche riprovando a lungo:
+    # con ogni probabilita' il portale scarta gli indirizzi esteri. Quindi si
+    # fa un solo tentativo breve e, se non risponde, si tira avanti senza:
+    # il pannello dira' da solo che questa fonte manca.
+    url = ("https://flguest.regione.liguria.it/services/api/DomandeLavoro"
+           "?dataByOption=all&idProgramma=5&pageNumber=1&pageSize=500&stato=3")
+    j = http_json(url, timeout=25)
     out = []
     for x in j.get("items", []):
         if (x.get("provincia") or "").upper() != "GE":

@@ -48,6 +48,8 @@ HTML = """<title>Lavoro Genova</title>
   .dato.allerta .n{color:var(--rosso)}
   .dato.novita .n{color:var(--verde)}
 
+  .avviso{background:var(--ambra-chiaro); color:var(--ambra); border:1px solid transparent;
+          border-radius:10px; padding:10px 14px; font-size:13px; margin:16px 0 0}
   .barra{position:sticky; top:0; z-index:20; background:var(--sfondo);
          padding:12px 0 10px; border-bottom:1px solid var(--bordo); margin-bottom:14px}
   .filtri{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
@@ -119,6 +121,7 @@ HTML = """<title>Lavoro Genova</title>
   <p class="sottotitolo">Aggiornato il __AGGIORNATO__ &middot; si aggiorna da solo il luned&igrave; e il gioved&igrave;</p>
 </header>
 
+__AVVISO_FONTI__
 <div class="riepilogo">
   <div class="dato"><div class="n">__N_PRINCIPALI__</div><div class="e">annunci</div></div>
   <div class="dato novita"><div class="n">__NUOVI__</div><div class="e">nuovi</div></div>
@@ -330,6 +333,13 @@ disegna();
 
 def genera():
     fonti_ok = [f["fonte"] for f in DATI["fonti"] if f["ok"]]
+    fonti_ko = [f["fonte"] for f in DATI["fonti"] if not f["ok"]]
+    avviso = ""
+    if fonti_ko:
+        avviso = ('<p class="avviso">In questo aggiornamento non ha risposto: '
+                  + ", ".join(fonti_ko)
+                  + ". L&rsquo;elenco potrebbe essere incompleto: al prossimo"
+                    " aggiornamento gli annunci mancanti ricompaiono.</p>")
     html = (HTML
             .replace("__DATI__", json.dumps(DATI, ensure_ascii=False))
             .replace("__AGGIORNATO__", DATI["aggiornato_it"])
@@ -340,7 +350,8 @@ def genera():
             .replace("__N_SCADENZA__", str(DATI["n_scadenza"]))
             .replace("__ESCLUSI__", str(DATI["esclusi"]))
             .replace("__SOGLIA__", str(SOGLIA))
-            .replace("__FONTI__", ", ".join(fonti_ok)))
+            .replace("__FONTI__", ", ".join(fonti_ok))
+            .replace("__AVVISO_FONTI__", avviso))
     cartella = os.path.join(QUI, "sito")
     os.makedirs(cartella, exist_ok=True)
     # Solo il contenuto di sito/ viene pubblicato online: i CV e le credenziali

@@ -36,11 +36,11 @@ jobs:
       - name: Genera il sito
         run: python costruisci_sito.py
 
-      - name: Salva lo storico aggiornato
+      - name: Salva lo storico (serve a capire cosa e' nuovo la volta dopo)
         run: |
           git config user.name "pannello-lavoro"
           git config user.email "actions@github.com"
-          git add sito/index.html dati.json storico.json
+          git add -f storico.json
           git diff --staged --quiet || git commit -m "Aggiornamento automatico $(date +%d/%m/%Y)"
           git push
 
