@@ -5,6 +5,11 @@ on:
     # lunedi' e giovedi' alle 6:00 UTC (le 8:00 in Italia d'estate, le 7:00 d'inverno)
     - cron: "0 6 * * 1,4"
   workflow_dispatch:        # permette anche di lanciarlo a mano dal sito di GitHub
+    inputs:
+      manda_email:
+        description: "Manda anche la mail di riepilogo (per provarla senza aspettare lunedi')"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -51,12 +56,19 @@ jobs:
 
       - uses: actions/deploy-pages@v4
 
-      - name: Manda il riepilogo (solo il lunedi')
-        if: ${{ github.event_name == 'schedule' }}
+      # Se la mail non parte il pannello e' comunque aggiornato: un problema di
+      # posta non deve far risultare fallito tutto l'aggiornamento.
+      - name: Manda il riepilogo (il lunedi', o a richiesta)
+        continue-on-error: true
+        if: ${{ github.event_name == 'schedule' || inputs.manda_email }}
         env:
           EMAIL_MITTENTE: ${{ secrets.EMAIL_MITTENTE }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           EMAIL_DESTINATARIO: ${{ secrets.EMAIL_DESTINATARIO }}
           INDIRIZZO_PANNELLO: ${{ secrets.INDIRIZZO_PANNELLO }}
         run: |
-          if [ "$(date +%u)" = "1" ]; then python manda_email.py; else echo "Non e' lunedi': niente email."; fi
+          if [ "${{ inputs.manda_email }}" = "true" ] || [ "$(date +%u)" = "1" ]; then
+            python manda_email.py
+          else
+            echo "Non e' lunedi' e non e' stato chiesto l'invio: niente email."
+          fi

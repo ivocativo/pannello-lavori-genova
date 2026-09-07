@@ -118,9 +118,32 @@ def main():
     msg.set_content("Riepilogo settimanale delle offerte di lavoro a Genova. "
                     "Apri il pannello: " + (LINK or "(link non configurato)"))
     msg.add_alternative(html, subtype="html")
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
-        s.login(MITTENTE, PASSWORD)
-        s.send_message(msg)
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
+            s.login(MITTENTE, PASSWORD)
+            s.send_message(msg)
+    except smtplib.SMTPAuthenticationError as e:
+        # L'errore piu' probabile, e quello che e' capitato davvero:
+        # nel segreto c'e' la password normale di Google invece della
+        # "password per le app". Meglio spiegarlo che stampare un tracciato.
+        testo = str(e)
+        print("NON SONO RIUSCITO A SPEDIRE: Gmail ha rifiutato le credenziali.")
+        if "Application-specific password" in testo or "5.7.9" in testo:
+            print("")
+            print("  Nel segreto EMAIL_PASSWORD c'e' la password normale dell'account.")
+            print("  Gmail non la accetta dai programmi: serve una 'password per le app',")
+            print("  16 lettere che si generano su myaccount.google.com/apppasswords")
+            print("  (richiede la verifica in due passaggi attiva sull'account).")
+            print("  Vanno incollate senza spazi nel segreto EMAIL_PASSWORD.")
+        else:
+            print("  Risposta del server: " + testo[:300])
+        print("")
+        print("Il pannello si e' aggiornato lo stesso: manca solo la mail.")
+        raise SystemExit(2)
+    except Exception as e:
+        print("NON SONO RIUSCITO A SPEDIRE: %s: %s" % (type(e).__name__, str(e)[:300]))
+        print("Il pannello si e' aggiornato lo stesso: manca solo la mail.")
+        raise SystemExit(2)
     print("Email inviata a " + DESTINATARIO + " -> " + oggetto)
 
 
