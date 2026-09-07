@@ -929,21 +929,40 @@ def main():
             storico = json.load(io.open(percorso_storico, encoding="utf-8"))
         except Exception:
             storico = {}
+    # Lo storico ha due parti: quando ogni annuncio e' stato visto la prima
+    # volta, e la data dell'esecuzione precedente. Serve la seconda perche'
+    # "nuovo" deve voler dire "comparso dall'ultimo aggiornamento", non
+    # "comparso negli ultimi sette giorni": altrimenti nella prima settimana
+    # di vita del pannello risulta nuovo tutto quanto.
+    if "visti" in storico and isinstance(storico.get("visti"), dict):
+        visti = storico["visti"]
+        esecuzione_precedente = storico.get("ultima_esecuzione")
+    else:
+        visti = {k: v for k, v in storico.items() if isinstance(v, str)}
+        esecuzione_precedente = None
+
     oggi_s = OGGI.strftime("%Y-%m-%d")
-    prima_volta_in_assoluto = not storico   # alla prima esecuzione e' tutto "nuovo": inutile dirlo
+    prima_volta_in_assoluto = not visti   # alla prima esecuzione e' tutto nuovo: inutile dirlo
     nuovi = 0
     for a in tenuti:
         k = chiave_dedup(a)
-        if k not in storico:
-            storico[k] = oggi_s
-            a["visto_la_prima_volta"] = oggi_s
-            a["nuovo"] = not prima_volta_in_assoluto
-            if a["nuovo"]:
-                nuovi += 1
+        if k not in visti:
+            visti[k] = oggi_s
+        a["visto_la_prima_volta"] = visti[k]
+        giorni = giorni_da(visti[k])
+        # per il pannello: comparso dall'ultimo aggiornamento in poi
+        if prima_volta_in_assoluto:
+            a["nuovo"] = False
+        elif esecuzione_precedente:
+            a["nuovo"] = visti[k] > esecuzione_precedente
         else:
-            a["visto_la_prima_volta"] = storico[k]
-            a["nuovo"] = (giorni_da(storico[k]) or 99) <= 7
-    json.dump(storico, io.open(percorso_storico, "w", encoding="utf-8"),
+            a["nuovo"] = visti[k] == oggi_s
+        # per la mail del lunedi': comparso negli ultimi sette giorni
+        a["nuovo_settimana"] = (not prima_volta_in_assoluto
+                                and giorni is not None and giorni <= 7)
+
+    json.dump({"ultima_esecuzione": oggi_s, "visti": visti},
+              io.open(percorso_storico, "w", encoding="utf-8"),
               ensure_ascii=False, indent=0)
 
     tenuti.sort(key=lambda a: (a["secondario"], -a["punteggio"],

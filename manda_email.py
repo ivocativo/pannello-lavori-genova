@@ -41,7 +41,9 @@ def giorni_a(iso):
 
 def costruisci():
     annunci = [a for a in DATI["annunci"] if not a.get("marginale")]
-    nuovi = [a for a in annunci if a.get("nuovo")]
+    # nella mail del lunedi' ha senso il riepilogo della settimana,
+    # non solo di cio' che e' cambiato dall'aggiornamento di giovedi'
+    nuovi = [a for a in annunci if a.get("nuovo_settimana") or a.get("nuovo")]
     nuovi.sort(key=lambda a: -a["punteggio"])
     scadenza = [a for a in annunci if a["settore"] == "pubblico"
                 and (giorni_a(a.get("scadenza")) or 999) <= 12]
@@ -81,7 +83,7 @@ def costruisci():
                 % (a.get("url", "#"), a.get("titolo", ""), a.get("ente", ""),
                    a.get("luogo", ""), a.get("punteggio", 0), extra))
 
-    blocco("Nuovi questa settimana (%d)" % len(nuovi), nuovi)
+    blocco("Nuovi negli ultimi sette giorni (%d)" % len(nuovi), nuovi)
     blocco("Concorsi in scadenza", scadenza, mostra_scadenza=True)
     if not nuovi:
         blocco("I più in linea, già visti", migliori)
