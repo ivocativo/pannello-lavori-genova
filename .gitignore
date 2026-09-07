@@ -9,3 +9,6 @@ __pycache__/
 # file rigenerati a ogni esecuzione: li produce il robot, non vanno versionati
 dati.json
 sito/
+
+# risultato del browser: rigenerato a ogni esecuzione
+annunci_browser.json

@@ -32,6 +32,20 @@ jobs:
           ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
         run: python prepara_config.py
 
+      # Il browser serve solo ai siti che caricano gli annunci con JavaScript.
+      # Se si rompe non blocca nulla: raccogli.py trova il file assente e va
+      # avanti con le altre fonti.
+      - name: Prepara il browser automatico
+        continue-on-error: true
+        run: |
+          python -m pip install --quiet playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Visita i siti che richiedono un browser
+        continue-on-error: true
+        timeout-minutes: 12
+        run: python raccogli_browser.py
+
       - name: Raccogli gli annunci
         env:
           ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}

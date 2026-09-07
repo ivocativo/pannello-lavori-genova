@@ -933,6 +933,24 @@ def fonte_poste():
                      "https://carriere.posteitaliane.it/it/sites/CX_3001/jobs")
 
 
+
+@fonte("Browser automatico")
+def fonte_browser():
+    """Legge quello che ha raccolto raccogli_browser.py, se e' stato eseguito.
+
+    Non lancia il browser da qui: e' un passo separato, cosi' se il browser
+    si rompe il pannello si costruisce lo stesso con tutte le altre fonti."""
+    percorso = os.path.join(QUI, "annunci_browser.json")
+    if not os.path.exists(percorso):
+        return []
+    d = json.load(io.open(percorso, encoding="utf-8"))
+    # se il file e' vecchio di piu' di tre giorni meglio ignorarlo: quegli
+    # annunci potrebbero essere gia' chiusi
+    if (time.time() - os.path.getmtime(percorso)) > 3 * 86400:
+        return []
+    return d.get("annunci", [])
+
+
 # -------------------------------------------------------------- costruzione --
 
 def chiave_dedup(a):
@@ -954,7 +972,7 @@ def main():
                 fonte_msc, fonte_costa, fonte_rina,
                 fonte_circle, fonte_nttdata, fonte_softjam,
                 fonte_sogegross, fonte_grendi, fonte_liguria_digitale,
-                fonte_poste]
+                fonte_poste, fonte_browser]
     grezzi = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         for res in ex.map(lambda f: f(), funzioni):
