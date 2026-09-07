@@ -63,7 +63,9 @@ jobs:
         if: ${{ github.event_name == 'schedule' || inputs.manda_email }}
         env:
           EMAIL_MITTENTE: ${{ secrets.EMAIL_MITTENTE }}
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          # Se esiste EMAIL_PASSWORD_2 si usa quella: e' la password per le app
+          # generata dopo, mentre in EMAIL_PASSWORD era rimasta quella vecchia.
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD_2 || secrets.EMAIL_PASSWORD }}
           EMAIL_DESTINATARIO: ${{ secrets.EMAIL_DESTINATARIO }}
           INDIRIZZO_PANNELLO: ${{ secrets.INDIRIZZO_PANNELLO }}
         run: |
