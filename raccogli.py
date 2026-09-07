@@ -851,6 +851,88 @@ def fonte_liguria_digitale():
     return out
 
 
+
+# ------------------------------------------- connettori riutilizzabili --------
+# Molte aziende usano le stesse due piattaforme di reclutamento. Scritte una
+# volta sola, aggiungere un datore di lavoro costa una riga.
+
+def da_workday(azienda, tenant, sito, cerca="Genova", solo_genova=True):
+    url = ("https://%s.wd3.myworkdayjobs.com/wday/cxs/%s/%s/jobs"
+           % (tenant, tenant, sito))
+    if "wd103" in tenant or "." in tenant:
+        url = "https://%s/wday/cxs/%s/%s/jobs" % (tenant, tenant.split(".")[0], sito)
+    out = []
+    for offset in (0, 20, 40):
+        j = http_json(url, body={"appliedFacets": {}, "limit": 20,
+                                 "offset": offset, "searchText": cerca})
+        posti = j.get("jobPostings") or []
+        if not posti:
+            break
+        for p in posti:
+            loc = p.get("locationsText") or ""
+            if solo_genova and "genova" not in senza_accenti(loc) and                "genoa" not in senza_accenti(loc):
+                continue
+            out.append({
+                "id": "wd-" + re.sub(r"\W+", "", azienda)[:10].lower() + "-" +
+                      re.sub(r"\W+", "", str(p.get("externalPath") or p.get("title")))[-24:],
+                "titolo": pulisci(p.get("title")),
+                "ente": azienda,
+                "luogo": pulisci(loc) or "Genova",
+                "settore": "privato",
+                "fonte": azienda,
+                "url": "https://%s.wd3.myworkdayjobs.com/it-IT/%s%s" % (
+                    tenant, sito, p.get("externalPath") or ""),
+                "pubblicato": None, "scadenza": None,
+                "descrizione": pulisci(p.get("title")) + " " + loc,
+            })
+        time.sleep(0.3)
+    return out
+
+
+def da_oracle(azienda, host, sito, url_pubblico):
+    base = (host + "/hcmRestApi/resources/latest/recruitingCEJobRequisitions"
+            "?onlyData=true&expand=requisitionList&finder=")
+    f = "findReqs;siteNumber=%s,limit=200,sortBy=POSTING_DATES_DESC" % sito
+    j = http_json(base + urllib.parse.quote(f, safe=";,="))
+    items = j.get("items") or []
+    reqs = (items[0].get("requisitionList") or []) if items else []
+    out = []
+    for x in reqs:
+        luogo = str(x.get("PrimaryLocation") or "")
+        if not re.search(r"(?i)genova|genoa|liguria", luogo):
+            continue
+        out.append({
+            "id": "orc-" + re.sub(r"\W+", "", azienda)[:10].lower() + "-" + str(x.get("Id")),
+            "titolo": pulisci(x.get("Title")),
+            "ente": azienda,
+            "luogo": pulisci(luogo),
+            "settore": "privato",
+            "fonte": azienda,
+            "url": url_pubblico,
+            "pubblicato": data_iso(x.get("PostedDate")),
+            "scadenza": data_iso(x.get("PostingEndDate")),
+            "descrizione": pulisci(" ".join(filter(None, [
+                x.get("Title"), x.get("JobFamily"), x.get("JobFunction"),
+                x.get("ContractType"), x.get("JobSchedule")]))),
+        })
+    return out
+
+
+# Accenture NON e' collegata di proposito: il suo Workday restituisce 2000
+# posizioni di tutto il mondo e non espone il campo della sede, quindi non
+# c'e' modo di isolare Genova. Includerla avrebbe voluto dire riempire il
+# pannello di annunci stranieri o etichettare come genovesi offerte di
+# Stoccolma. Meglio non averla che averla sbagliata.
+
+
+@fonte("Poste Italiane")
+def fonte_poste():
+    return da_oracle("Poste Italiane",
+                     "https://fa-emza-saasfaprod1.fa.ocs.oraclecloud.com",
+                     "CX_3001",
+                     "https://carriere.posteitaliane.it/it/sites/CX_3001/jobs")
+
+
 # -------------------------------------------------------------- costruzione --
 
 def chiave_dedup(a):
@@ -871,7 +953,8 @@ def main():
     funzioni = [fonte_inpa, fonte_liguria, fonte_adzuna, fonte_leonardo,
                 fonte_msc, fonte_costa, fonte_rina,
                 fonte_circle, fonte_nttdata, fonte_softjam,
-                fonte_sogegross, fonte_grendi, fonte_liguria_digitale]
+                fonte_sogegross, fonte_grendi, fonte_liguria_digitale,
+                fonte_poste]
     grezzi = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         for res in ex.map(lambda f: f(), funzioni):
