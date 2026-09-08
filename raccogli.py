@@ -1261,14 +1261,22 @@ def fonte_gigroup():
 # Due aggregatori in attesa della chiave. Restano inerti finche' non c'e':
 # non danno errore, semplicemente non restituiscono nulla. Le chiavi vanno
 # in config.json (sul computer) o nei secrets di GitHub, mai nel codice.
+RIFERIMENTO_PANNELLO = "https://ivocativo.github.io/pannello-lavori-genova/"
 JOOBLE_KEY = os.environ.get("JOOBLE_KEY") or CONFIG.get("jooble", {}).get("key") or ""
+# si accende solo quando la chiave sara' valida per l'Italia
+JOOBLE_ITALIA = str(CONFIG.get("jooble", {}).get("italia", "")).lower() in ("1", "si", "true")
 CAREERJET_KEY = (os.environ.get("CAREERJET_KEY")
                  or CONFIG.get("careerjet", {}).get("key") or "")
 
 
 @fonte("Jooble")
 def fonte_jooble():
-    if not JOOBLE_KEY:
+    """ATTENZIONE: la chiave rilasciata il 2026-09-08 e' agganciata al sito
+    statunitense. Cercando "Genova" restituisce offerte in North Carolina, e
+    l'indirizzo italiano (it.jooble.org) risponde "non autorizzato". Serve
+    chiedere a Jooble una chiave per il mercato italiano; finche' non c'e',
+    questa fonte resta spenta per non inquinare il pannello."""
+    if not JOOBLE_KEY or not JOOBLE_ITALIA:
         return []
     j = http_json("https://jooble.org/api/" + JOOBLE_KEY,
                   body={"keywords": "", "location": "Genova", "radius": "30",
@@ -1296,33 +1304,51 @@ def fonte_jooble():
 
 @fonte("Careerjet")
 def fonte_careerjet():
+    """Careerjet, aggregatore.
+
+    Due cose imparate a caro prezzo: va usata l'API pubblica (la v4 rifiuta
+    le chiamate da indirizzi non autorizzati) e serve l'intestazione Referer,
+    altrimenti risponde "Undeclared referrer". Si interroga per parola chiave
+    come con Adzuna, cosi' si prende cio' che interessa invece dei quasi
+    duemila annunci dell'area."""
     if not CAREERJET_KEY:
         return []
-    import base64
-    parametri = {"locale_code": "it_IT", "keywords": "", "location": "Genova",
-                 "page_size": 100, "sort": "date",
-                 "user_ip": "1.2.3.4", "user_agent": UA}
-    url = "https://search.api.careerjet.net/v4/query?" + urllib.parse.urlencode(parametri)
-    # l'autenticazione vuole la chiave come nome utente e password vuota
-    credenziali = base64.b64encode((CAREERJET_KEY + ":").encode()).decode()
-    j = http_json(url, headers={"Authorization": "Basic " + credenziali})
-    out = []
-    for x in j.get("jobs", []):
-        luogo = pulisci(x.get("locations"))
-        if not re.search(r"(?i)genova|genoa|liguria", luogo):
+    chiavi = ["business analyst", "analista", "project manager", "impiegato",
+              "back office", "amministrativo", "marketing", "comunicazione",
+              "e-commerce", "customer", "coordinatore", "specialist"]
+    out, visti = [], set()
+    for kw in chiavi:
+        parametri = {"locale_code": "it_IT", "keywords": kw, "location": "Genova",
+                     "pagesize": 50, "sort": "date", "affid": CAREERJET_KEY,
+                     "user_ip": "93.184.216.34", "user_agent": UA}
+        try:
+            j = http_json("http://public.api.careerjet.net/search?"
+                          + urllib.parse.urlencode(parametri),
+                          headers={"Referer": RIFERIMENTO_PANNELLO})
+        except Exception:
             continue
-        out.append({
-            "id": "careerjet-" + re.sub(r"\W+", "", str(x.get("url")))[-30:],
-            "titolo": pulisci(x.get("title")),
-            "ente": pulisci(x.get("company")) or "Azienda non indicata",
-            "luogo": luogo,
-            "settore": "privato",
-            "fonte": "Careerjet",
-            "url": x.get("url"),
-            "pubblicato": data_iso(x.get("date")),
-            "scadenza": None,
-            "descrizione": pulisci(x.get("description"))[:2000],
-        })
+        for x in j.get("jobs", []):
+            luogo = pulisci(x.get("locations"))
+            if not re.search(r"(?i)genova|genoa|liguria", luogo):
+                continue
+            link = x.get("url") or ""
+            chiave = re.sub(r"\W+", "", link)[-40:]
+            if not link or chiave in visti:
+                continue
+            visti.add(chiave)
+            out.append({
+                "id": "careerjet-" + chiave,
+                "titolo": pulisci(x.get("title")),
+                "ente": pulisci(x.get("company")) or "Azienda non indicata",
+                "luogo": luogo,
+                "settore": "privato",
+                "fonte": "Careerjet",
+                "url": link,
+                "pubblicato": data_iso(x.get("date")),
+                "scadenza": None,
+                "descrizione": pulisci(x.get("description"))[:2000],
+            })
+        time.sleep(0.3)
     return out
 
 
