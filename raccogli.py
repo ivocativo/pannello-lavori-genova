@@ -1109,6 +1109,43 @@ def fonte_randstad():
     return out
 
 
+@fonte("Fratelli Cosulich")
+def fonte_cosulich():
+    """Gruppo armatoriale genovese, portale carriere proprio.
+
+    Ogni scheda ha titolo, societa' del gruppo e sede in tre campi distinti:
+    si legge senza ambiguita'."""
+    h = http("https://career.cosulich.com/")
+    out = []
+    for blocco in re.split(r'class="card position-cards', h)[1:]:
+        blocco = blocco[:2500]
+        tit = re.search(r'card-jobs-titolo"[^>]*>(.*?)</', blocco, re.S)
+        soc = re.search(r'card-jobs-testo"[^>]*>(.*?)</', blocco, re.S)
+        sede = re.search(r'card-jobs-quote[^"]*"[^>]*>(.*?)</', blocco, re.S)
+        link = re.search(r'href="(/jobs/[^"]+)"', blocco)
+        if not tit or not link:
+            continue
+        titolo = pulisci(tit.group(1))
+        luogo = pulisci(sede.group(1)) if sede else ""
+        if not re.search(r"(?i)genova|genoa|liguria|sampierdarena|sestri|"
+                         r"cornigliano|voltri|chiavari|rapallo", luogo):
+            continue
+        societa = pulisci(soc.group(1)) if soc else ""
+        out.append({
+            "id": "cosulich-" + re.sub(r"\W+", "", link.group(1))[-30:],
+            "titolo": titolo,
+            "ente": "Gruppo Cosulich" + (" - " + societa if societa else ""),
+            "luogo": luogo,
+            "settore": "privato",
+            "fonte": "Fratelli Cosulich",
+            "url": "https://career.cosulich.com" + link.group(1),
+            "pubblicato": None,
+            "scadenza": None,
+            "descrizione": " ".join([titolo, societa, luogo]),
+        })
+    return out
+
+
 @fonte("Browser automatico")
 def fonte_browser():
     """Legge quello che ha raccolto raccogli_browser.py, se e' stato eseguito.
@@ -1147,7 +1184,7 @@ def main():
                 fonte_msc, fonte_costa, fonte_rina,
                 fonte_circle, fonte_nttdata, fonte_softjam,
                 fonte_sogegross, fonte_grendi, fonte_liguria_digitale,
-                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_browser]
+                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_cosulich, fonte_browser]
     grezzi = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         for res in ex.map(lambda f: f(), funzioni):

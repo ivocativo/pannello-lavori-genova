@@ -27,6 +27,9 @@ USCITA = os.path.join(QUI, "annunci_browser.json")
 #   "genova"  = l'azienda ha sede a Genova, un annuncio senza citta' va tenuto
 #               e segnalato come da verificare
 #   "scarta"  = azienda nazionale, senza una citta' esplicita non si tiene
+#   "gia_filtrata" = l'indirizzo stesso restringe a Genova (es. la pagina
+#               "offerte a Genova" di un'agenzia): si tiene tutto quello che
+#               non nomina esplicitamente un'altra citta'""")
 SITI = [
     # --- grandi datori genovesi ---
     ("Fincantieri",      "https://www.fincantieri.com/it/persone/lavora-con-noi/posizioni-aperte/", "scarta"),
@@ -40,6 +43,9 @@ SITI = [
     ("De Wave",          "https://dewavegroup.com/current-jobs/", "genova"),
     ("Piaggio Aerospace", "https://www.piaggioaerospace.it/en/career", "scarta"),
     ("BPER Banca",       "https://www.bper.it/lavora-con-noi", "scarta"),
+    ("Grimaldi",         "https://careers.grimaldi-lines.com/jobs.php?company_name=Personale%20di%20Terra&lan=it&language=it", "scarta"),
+    ("Almaviva",         "https://www.almaviva.it/it_IT/Lavora-con-noi/Posizioni-aperte", "scarta"),
+    ("Boero",            "https://www.gruppoboero.it/persone/lavora-con-noi/", "genova"),
     # --- grandi gruppi nazionali ---
     ("FS Italiane",      "https://fscareers.gruppofs.it/jobs.php", "scarta"),
     ("Terna",            "https://www.terna.it/it/carriere/lavora-con-noi", "scarta"),
@@ -60,7 +66,7 @@ SITI = [
 ESTRAI = r"""
 () => {
   const RUOLO = /(analyst|analista|manager|specialist|engineer|ingegner|impiegat|addett|tecnic|responsabil|coordinat|consulent|developer|operator|junior|senior|account|buyer|controller|marketing|commercial|assistant|officer|progettista|programmatore|sistemista|architect|designer|planner|supervisor|esperto|neolaureat)/i;
-  const SCARTA = /(cookie|privacy|accedi|log ?in|newsletter|iscriviti|informativa|condizioni|mappa del sito|governance|board of|consiglio di amministrazione|assistenza|servizi|soluzioni|prodotti|chi siamo|about us)/i;
+  const SCARTA = /(cookie|privacy|accedi|log ?in|newsletter|iscriviti|informativa|condizioni|mappa del sito|governance|board of|consiglio di amministrazione|assistenza|servizi|soluzioni|prodotti|chi siamo|about us|^offerte (di )?lavoro (per|settore)|^lavoro (per|settore)|^cerca |^tutte le)/i;
   // un collegamento e' un annuncio se punta a una scheda di posizione
   const HREF_LAVORO = /(job|posizion|vacanc|career|carrier|offert|annunc|requisition|dettaglio|opportunit|apply|candidat)/i;
   const out = [];
@@ -176,6 +182,19 @@ def raccogli():
                 sede = blocco.replace(titolo, " ").strip(" -–|·,")
                 qui = GENOVA.search(sede) or GENOVA.search(titolo)
                 altrove = ALTRA_CITTA.search(sede) or ALTRA_CITTA.search(titolo)
+                if not qui and senza_citta == "gia_filtrata":
+                    if altrove:
+                        continue    # la pagina e' di Genova ma questo dice un'altra citta'
+                    tenuti.append({
+                        "id": "browser-" + re.sub(r"\W+", "", nome)[:10].lower() + "-"
+                              + re.sub(r"\W+", "", titolo)[:34].lower(),
+                        "titolo": titolo, "ente": nome, "luogo": "Genova",
+                        "settore": "privato", "fonte": nome,
+                        "url": g.get("url") or url,
+                        "pubblicato": None, "scadenza": None,
+                        "descrizione": g.get("blocco", ""),
+                    })
+                    continue
                 if not qui:
                     continue        # senza una sede genovese esplicita non si tiene
                 if altrove and altrove.start() < (qui.start() if qui else 9999):
