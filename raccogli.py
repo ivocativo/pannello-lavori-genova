@@ -1366,6 +1366,39 @@ def fonte_enti_pubblici():
     return out
 
 
+@fonte("Citta Metropolitana di Genova")
+def fonte_citta_metropolitana():
+    """Citta Metropolitana di Genova: i bandi stanno in /it/concorsi con il
+    titolo dentro il collegamento. Pubblica anche gli "interpelli", cioe' le
+    chiamate rivolte a chi e' gia' in una graduatoria: si tengono, sono
+    comunque posizioni aperte."""
+    base = "https://www.cittametropolitana.genova.it"
+    h = http(base + "/it/concorsi", timeout=45)
+    out, visti = [], set()
+    for m in re.finditer(r'<a[^>]+href="(/it/concorsi/bandi/[^"]+)"[^>]*>(.{0,400}?)</a>',
+                         h, re.S | re.I):
+        titolo = pulisci(m.group(2))
+        if len(titolo) < 15:
+            continue
+        link = m.group(1)
+        if link in visti:
+            continue
+        visti.add(link)
+        out.append({
+            "id": "cmge-" + re.sub(r"\W+", "", link)[-32:],
+            "titolo": titolo,
+            "ente": "Citta Metropolitana di Genova",
+            "luogo": "Genova",
+            "settore": "pubblico",
+            "fonte": "Citta Metropolitana",
+            "url": base + link,
+            "pubblicato": None,
+            "scadenza": None,
+            "descrizione": titolo,
+        })
+    return out
+
+
 @fonte("Browser automatico")
 def fonte_browser():
     """Legge quello che ha raccolto raccogli_browser.py, se e' stato eseguito.
@@ -1404,7 +1437,7 @@ def main():
                 fonte_msc, fonte_costa, fonte_rina,
                 fonte_circle, fonte_nttdata, fonte_softjam,
                 fonte_sogegross, fonte_grendi, fonte_liguria_digitale,
-                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_cosulich, fonte_manpower, fonte_synergie, fonte_enti_pubblici, fonte_browser]
+                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_cosulich, fonte_manpower, fonte_synergie, fonte_citta_metropolitana, fonte_enti_pubblici, fonte_browser]
     grezzi = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         for res in ex.map(lambda f: f(), funzioni):
