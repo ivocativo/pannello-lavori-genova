@@ -187,7 +187,12 @@ AMBITI = [
         "administrative support", "administrative assistant", "office assistant",
         "operations specialist", "planning & reporting", "order control",
         "istruttore direttivo", "area dei funzionari", "funzionario servizi",
-        "specialista amministrativo", "affari generali"]),
+        "specialista amministrativo", "affari generali",
+        # profili amministrativi usati dagli enti sanitari e dai comuni
+        "coadiutore amministrativo", "operatore amministrativo",
+        "collaboratore amministrativo professionale", "assistente amministrativo",
+        "coadiutore amministrativo senior", "istruttore amministrativo contabile",
+        "funzionario amministrativo contabile", "esperto amministrativo"]),
     ("E-commerce", 8, [
         "e-commerce", "ecommerce", "digital commerce", "magento", "shopify",
         "catalogo prodotti", "marketplace", "web shop", "vendita online"]),
@@ -1146,6 +1151,116 @@ def fonte_cosulich():
     return out
 
 
+
+# I bandi degli enti sanitari hanno titoli lunghissimi in cui il profilo
+# cercato e' sepolto a meta' frase ("...di n. 2 unita' di personale con la
+# qualifica di dirigente farmacista..."). Senza tirarlo fuori, ogni bando
+# prende zero punti e finisce fra i meno pertinenti, com'e' successo alla
+# prima prova con i 114 bandi della ASL 3.
+PROFILO_NEL_TITOLO = [
+    r"(?i)qualifica\s+di\s+([A-Za-zÀ-ù /'\-]{5,70})",
+    r"(?i)profilo\s+professionale\s+di\s+([A-Za-zÀ-ù /'\-]{5,70})",
+    r"(?i)n\.\s*\d+\s+posti?\s+di\s+([A-Za-zÀ-ù /'\-]{5,70})",
+    r"(?i)n\.\s*\d+\s+unit\w*\s+di\s+([A-Za-zÀ-ù /'\-]{5,70})",
+    r"(?i)incarico[^,.]{0,60}?\s+a\s+([A-Za-zÀ-ù /'\-]{5,70})",
+    r"(?i)per\s+la\s+copertura[^,.]{0,40}?\s+di\s+([A-Za-zÀ-ù /'\-]{5,70})",
+]
+
+
+def profilo_da_titolo(titolo):
+    for schema in PROFILO_NEL_TITOLO:
+        m = re.search(schema, titolo or "")
+        if not m:
+            continue
+        p = re.sub(r"\s+", " ", m.group(1)).strip(" -/,;")
+        p = re.sub(r"(?i)(personale|con|della|dell|delle|degli|per|area|"
+                   r"disciplina|comma|ai sensi).*$", "", p).strip(" -/,;")
+        if 4 < len(p) < 70:
+            return p[:1].upper() + p[1:]
+    return None
+
+
+# Diversi enti pubblici liguri usano lo stesso componente per pubblicare i
+# bandi ("publiccompetitions"): un solo lettore li serve tutti. Serve perche'
+# InPA, che doveva raccoglierli, in pratica non li ha: verificato il
+# 2026-09-08 con la ASL 3, i cui concorsi non compaiono affatto sul portale
+# nazionale.
+ENTI_PUBBLICI = [
+    ("ASL 3 Genovese", "concorsi",
+     "https://www.asl3.liguria.it/amministrazione-trasparente/bandi-di-concorso/"
+     "concorsi-aperti/publiccompetitions/"),
+    ("ASL 3 Genovese", "avvisi pubblici",
+     "https://www.asl3.liguria.it/amministrazione-trasparente/bandi-di-concorso/"
+     "avvisi-pubblici/publiccompetitions/"),
+    ("ASL 3 Genovese", "mobilita",
+     "https://www.asl3.liguria.it/amministrazione-trasparente/bandi-di-concorso/"
+     "mobilit%C3%A0/publiccompetitions/"),
+    # Regione Liguria non e' in elenco: la sua pagina "bandi e avvisi" contiene
+    # concessioni idriche e gare d'appalto, non offerte di lavoro. I suoi
+    # concorsi passano invece da InPA (verificato).
+]
+
+
+@fonte("Enti pubblici liguri")
+def fonte_enti_pubblici():
+    def uno(voce):
+        ente, sezione, url = voce
+        try:
+            h = http(url, timeout=45)
+        except Exception:
+            return []
+        # Si parte dall'intestazione della sezione "contenuti attivi" e si
+        # prende quello che viene dopo. Cercare la parola "archivio" per
+        # tagliare non funziona: nel menu del sito c'e' "Archivio Newsletter"
+        # e il taglio cancellava l'intera pagina.
+        inizio = re.search(r"pc_item_section[^>]*>[^<]{0,120}attiv", h, re.I)
+        testa = h[inizio.start():] if inizio else h
+        trovati = []
+        for blocco in re.split(r"pc_latest_item", testa)[1:]:
+            blocco = blocco[:3000]
+            m = re.search(r"bando_link'?\"?\s+href=[\"']([^\"']+)[\"'][^>]*>(.*?)</a>",
+                          blocco, re.S | re.I)
+            if not m:
+                continue
+            titolo = pulisci(m.group(2))
+            if len(titolo) < 15:
+                continue
+            scad = None
+            ms = re.search(r"(?i)scadenz\w*[^0-9]{0,40}(\d{2})[/-](\d{2})[/-](\d{4})",
+                           pulisci(blocco))
+            if ms:
+                scad = "%s-%s-%s" % (ms.group(3), ms.group(2), ms.group(1))
+            if scad and (giorni_a(scad) or 0) < 0:
+                continue                      # gia' scaduto
+            link = m.group(1)
+            if link.startswith("/"):
+                link = re.match(r"(https?://[^/]+)", url).group(1) + link
+            trovati.append({
+                "id": "pub-" + re.sub(r"\W+", "", link)[-34:],
+                "titolo": profilo_da_titolo(titolo) or titolo,
+                "titolo_ufficiale": titolo if profilo_da_titolo(titolo) else None,
+                "ente": ente,
+                "luogo": "Genova",
+                "settore": "pubblico",
+                "fonte": ente,
+                "url": link,
+                "pubblicato": None,
+                "scadenza": scad,
+                "descrizione": titolo + " " + sezione,
+            })
+        return trovati
+
+    out, visti = [], set()
+    with ThreadPoolExecutor(max_workers=4) as ex:
+        for lista in ex.map(uno, ENTI_PUBBLICI):
+            for a in lista:
+                if a["id"] in visti:
+                    continue
+                visti.add(a["id"])
+                out.append(a)
+    return out
+
+
 @fonte("Browser automatico")
 def fonte_browser():
     """Legge quello che ha raccolto raccogli_browser.py, se e' stato eseguito.
@@ -1184,7 +1299,7 @@ def main():
                 fonte_msc, fonte_costa, fonte_rina,
                 fonte_circle, fonte_nttdata, fonte_softjam,
                 fonte_sogegross, fonte_grendi, fonte_liguria_digitale,
-                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_cosulich, fonte_browser]
+                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_cosulich, fonte_enti_pubblici, fonte_browser]
     grezzi = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         for res in ex.map(lambda f: f(), funzioni):
