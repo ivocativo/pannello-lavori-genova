@@ -31,8 +31,7 @@ SITI = [
     # --- grandi datori genovesi ---
     ("Fincantieri",      "https://www.fincantieri.com/it/persone/lavora-con-noi/posizioni-aperte/", "scarta"),
     ("Ansaldo Energia",  "https://www.ansaldoenergia.com/discover-our-job-opportunities", "genova"),
-    ("Hitachi Rail",     "https://www.hitachirail.com/careers/vacancies/", "scarta"),
-    ("ERG",              "https://www.erg.eu/it/lavora-con-noi", "genova"),
+    ("ERG",              "https://www.erg.eu/it/lavorare-in-erg/entra-nella-squadra", "genova"),
     ("Esaote",           "https://www.esaote.com/it-IT/esaote-group/persone/posizioni-aperte/", "genova"),
     ("IIT",              "https://www.iit.it/it/web/guest/opportunities", "genova"),
     ("ETT (gruppo Deda)", "https://www.deda.com/careers", "scarta"),
@@ -43,7 +42,7 @@ SITI = [
     ("BPER Banca",       "https://www.bper.it/lavora-con-noi", "scarta"),
     # --- grandi gruppi nazionali ---
     ("FS Italiane",      "https://fscareers.gruppofs.it/jobs.php", "scarta"),
-    ("Enel",             "https://jobs.enel.com/it_IT/careers/JobsSearch", "scarta"),
+    ("Enel",             "https://jobs.enel.com/en_US/careers/JobOpenings", "scarta"),
     ("Terna",            "https://www.terna.it/it/carriere/lavora-con-noi", "scarta"),
     ("Snam",             "https://www.snam.it/it/carriere/", "scarta"),
     ("Eni",              "https://www.eni.com/it-IT/carriere.html", "scarta"),
@@ -94,6 +93,29 @@ ESTRAI = r"""
 """
 
 # Sestri Levante e Riva Trigoso (cantieri Fincantieri) sono in provincia di Genova
+# Diversi portali non mostrano gli annunci finche' non si risponde all'avviso
+# sui cookie. Si sceglie sempre l'opzione piu' rispettosa: solo i necessari,
+# rifiutando gli altri. Non si preme mai "accetta tutti".
+RIFIUTI = [
+    "Rifiuta", "Rifiuta tutti", "Solo necessari", "Accetta solo i necessari",
+    "Solo i cookie necessari", "Continua senza accettare", "Reject", "Reject all",
+    "Decline", "Only necessary", "Necessary only", "Use necessary cookies only",
+]
+
+
+def rifiuta_cookie(pagina):
+    for etichetta in RIFIUTI:
+        try:
+            b = pagina.get_by_role("button", name=etichetta, exact=False).first
+            if b.is_visible(timeout=1200):
+                b.click(timeout=2500)
+                pagina.wait_for_timeout(1200)
+                return etichetta
+        except Exception:
+            continue
+    return None
+
+
 GENOVA = re.compile(r"(?i)\b(genova|genoa|liguria|sestri|cornigliano|erzelli|bolzaneto|"
                     r"riva trigoso|chiavari|rapallo|lavagna|arenzano|busalla|"
                     r"campomorone|cogoleto)\b")
@@ -128,6 +150,7 @@ def raccogli():
                 pagina.route(re.compile(r"\.(png|jpe?g|gif|webp|svg|woff2?|mp4)$"),
                              lambda r: r.abort())
                 pagina.goto(url, wait_until="domcontentloaded", timeout=30000)
+                rifiuta_cookie(pagina)
                 try:
                     pagina.wait_for_load_state("networkidle", timeout=12000)
                 except Exception:

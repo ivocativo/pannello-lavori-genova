@@ -934,6 +934,73 @@ def fonte_poste():
 
 
 
+SEZIONI_NON_TITOLO = re.compile(
+    r"(?i)^(about us|chi siamo|job description|descrizione|accountabilit|"
+    r"requirement|requisiti|responsabilit|qualification|competenze|"
+    r"cosa offriamo|what we offer|benefit|sede|luogo|contratto|profilo)")
+
+RUOLO_PLAUSIBILE = re.compile(
+    r"(?i)(engineer|manager|analyst|analista|specialist|technician|tecnic|"
+    r"developer|architect|consultant|consulente|coordinator|coordinatore|"
+    r"designer|planner|supervisor|officer|controller|impiegat|addett|"
+    r"responsabile|coordinat|coordinamento|buyer|account|expert|esperto)")
+
+
+@fonte("Hitachi Rail")
+def fonte_hitachi():
+    """Hitachi Rail (stabilimento a Genova Sestri).
+
+    L'elenco lo serve un canale dati aperto, ma senza il campo del titolo:
+    il ruolo va pescato nel testo della descrizione, dove e' in grassetto."""
+    base = ("https://www.hitachirail.com/umbraco/api/workdayrebuild/getjobs"
+            "?ItemsPerPage=100&sortByField=primaryJobPostingDate"
+            "&sortDirection=DESC&page=%d&")
+    intestazioni = {"Referer": "https://www.hitachirail.com/careers/vacancies/"}
+    tutti = []
+    for pagina in range(1, 6):
+        j = http_json(base % pagina, headers=intestazioni)
+        elementi = j.get("items") or []
+        if not elementi:
+            break
+        tutti.extend(elementi)
+        if len(tutti) >= (j.get("totalResults") or 0):
+            break
+
+    def titolo_da(descrizione):
+        for m in re.finditer(r"<(?:b|strong)>(.{3,80}?)</(?:b|strong)>",
+                             descrizione or "", re.S | re.I):
+            t = pulisci(m.group(1)).strip(" :–-")
+            if not t or SEZIONI_NON_TITOLO.match(t):
+                continue
+            if RUOLO_PLAUSIBILE.search(t):
+                return t
+        return None
+
+    out = []
+    for x in tutti:
+        sede = str(x.get("primaryJobPostingLocation") or
+                   x.get("jobRequisitionIdAndLocation") or "")
+        if not re.search(r"(?i)genoa|genova", sede):
+            continue
+        titolo = titolo_da(x.get("jobDescription"))
+        if not titolo:
+            continue
+        out.append({
+            "id": "hitachi-" + str(x.get("jobRequisitionId")),
+            "titolo": titolo,
+            "ente": "Hitachi Rail",
+            "luogo": "Genova",
+            "settore": "privato",
+            "fonte": "Hitachi Rail",
+            "url": ("https://www.hitachirail.com/careers/vacancies/job-details/?jobId="
+                    + urllib.parse.quote(str(x.get("jobRequisitionIdAndLocation") or ""))),
+            "pubblicato": None,
+            "scadenza": None,
+            "descrizione": pulisci(x.get("jobDescription"))[:2500],
+        })
+    return out
+
+
 @fonte("Browser automatico")
 def fonte_browser():
     """Legge quello che ha raccolto raccogli_browser.py, se e' stato eseguito.
@@ -972,7 +1039,7 @@ def main():
                 fonte_msc, fonte_costa, fonte_rina,
                 fonte_circle, fonte_nttdata, fonte_softjam,
                 fonte_sogegross, fonte_grendi, fonte_liguria_digitale,
-                fonte_poste, fonte_browser]
+                fonte_poste, fonte_hitachi, fonte_browser]
     grezzi = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         for res in ex.map(lambda f: f(), funzioni):
