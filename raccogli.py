@@ -1206,6 +1206,58 @@ def fonte_synergie():
     return out
 
 
+@fonte("Gi Group")
+def fonte_gigroup():
+    """Gi Group, agenzia per il lavoro.
+
+    Il dominio non e' it.gigroup.com ma gigroup.it. La ricerca e' un modulo
+    normale: ?placeOfWork=Genova&radius=30 viene tradotto in un indirizzo
+    stabile per provincia, che si puo' chiamare direttamente."""
+    base = "https://www.gigroup.it/offerte-lavoro/liguria-re/genova-pr/genova-ci/"
+    out, visti = [], set()
+    for pagina in range(1, 5):
+        u = base + ("?radius=30" if pagina == 1 else "?npage=%d&radius=30" % pagina)
+        try:
+            h = http(u, timeout=45)
+        except Exception:
+            break
+        nuovi = 0
+        # Ogni scheda porta con se' un blocco di dati con titolo e provincia
+        # gia' puliti: piu' solido che ricostruirli dal contorno HTML.
+        for m in re.finditer(
+                r'href="(/offerte-lavoro-dettaglio/[^"]+)"[^>]*?'
+                r"data-job='(\{.*?\})'", h, re.S):
+            link = "https://www.gigroup.it" + m.group(1)
+            if link in visti:
+                continue
+            try:
+                dati = json.loads(html.unescape(m.group(2)))
+            except Exception:
+                continue
+            titolo = pulisci(dati.get("offerTitle"))
+            provincia = pulisci(dati.get("province"))
+            if not titolo or not re.search(r"(?i)genova", provincia or "Genova"):
+                continue
+            visti.add(link)
+            nuovi += 1
+            out.append({
+                "id": "gigroup-" + re.sub(r"\W+", "", link)[-32:],
+                "titolo": titolo,
+                "ente": "Gi Group (agenzia)",
+                "luogo": provincia or "Genova",
+                "settore": "privato",
+                "fonte": "Gi Group",
+                "url": link,
+                "pubblicato": None,
+                "scadenza": None,
+                "descrizione": " ".join(filter(None, [
+                    titolo, dati.get("industry"), dati.get("professionalArea")])),
+            })
+        if not nuovi:
+            break
+    return out
+
+
 @fonte("Fratelli Cosulich")
 def fonte_cosulich():
     """Gruppo armatoriale genovese, portale carriere proprio.
@@ -1437,7 +1489,7 @@ def main():
                 fonte_msc, fonte_costa, fonte_rina,
                 fonte_circle, fonte_nttdata, fonte_softjam,
                 fonte_sogegross, fonte_grendi, fonte_liguria_digitale,
-                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_cosulich, fonte_manpower, fonte_synergie, fonte_citta_metropolitana, fonte_enti_pubblici, fonte_browser]
+                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_cosulich, fonte_manpower, fonte_synergie, fonte_gigroup, fonte_citta_metropolitana, fonte_enti_pubblici, fonte_browser]
     grezzi = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         for res in ex.map(lambda f: f(), funzioni):
