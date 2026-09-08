@@ -1195,6 +1195,19 @@ ENTI_PUBBLICI = [
     ("ASL 3 Genovese", "mobilita",
      "https://www.asl3.liguria.it/amministrazione-trasparente/bandi-di-concorso/"
      "mobilit%C3%A0/publiccompetitions/"),
+    # Policlinico San Martino: il suo sito ha otto sezioni. Si prendono solo
+    # quelle aperte all'esterno e pertinenti; restano fuori gli avvisi interni,
+    # i bandi riservati ai dipendenti, gli incarichi di direzione sanitaria,
+    # quelli per le categorie protette e i corsi di laurea, che non sono lavoro.
+    ("Policlinico San Martino", "avvisi pubblici",
+     "https://www.ospedalesanmartino.it/it/amministrazione-trasparente/"
+     "bandi-di-concorso-trasparenza/avvisi-pubblici/publiccompetitions/"),
+    ("Policlinico San Martino", "bandi PNRR",
+     "https://www.ospedalesanmartino.it/it/amministrazione-trasparente/"
+     "bandi-di-concorso-trasparenza/bandi-pnrr/publiccompetitions/"),
+    ("Policlinico San Martino", "collaborazioni",
+     "https://www.ospedalesanmartino.it/it/amministrazione-trasparente/"
+     "bandi-di-concorso-trasparenza/selezioni-co-co-co/publiccompetitions/"),
     # Regione Liguria non e' in elenco: la sua pagina "bandi e avvisi" contiene
     # concessioni idriche e gare d'appalto, non offerte di lavoro. I suoi
     # concorsi passano invece da InPA (verificato).
