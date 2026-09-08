@@ -50,6 +50,9 @@ jobs:
         env:
           ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
           ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+          # se un giorno arriveranno; senza, le due fonti restano inerti
+          JOOBLE_KEY: ${{ secrets.JOOBLE_KEY }}
+          CAREERJET_KEY: ${{ secrets.CAREERJET_KEY }}
         run: python raccogli.py
 
       - name: Genera il sito

@@ -1258,6 +1258,74 @@ def fonte_gigroup():
     return out
 
 
+# Due aggregatori in attesa della chiave. Restano inerti finche' non c'e':
+# non danno errore, semplicemente non restituiscono nulla. Le chiavi vanno
+# in config.json (sul computer) o nei secrets di GitHub, mai nel codice.
+JOOBLE_KEY = os.environ.get("JOOBLE_KEY") or CONFIG.get("jooble", {}).get("key") or ""
+CAREERJET_KEY = (os.environ.get("CAREERJET_KEY")
+                 or CONFIG.get("careerjet", {}).get("key") or "")
+
+
+@fonte("Jooble")
+def fonte_jooble():
+    if not JOOBLE_KEY:
+        return []
+    j = http_json("https://jooble.org/api/" + JOOBLE_KEY,
+                  body={"keywords": "", "location": "Genova", "radius": "30",
+                        "page": "1", "ResultOnPage": 100})
+    out = []
+    for x in j.get("jobs", []):
+        luogo = pulisci(x.get("location"))
+        if not re.search(r"(?i)genova|genoa|liguria", luogo):
+            continue
+        out.append({
+            "id": "jooble-" + str(x.get("id") or re.sub(r"\W+", "", str(x.get("link")))[-24:]),
+            "titolo": pulisci(x.get("title")),
+            "ente": pulisci(x.get("company")) or "Azienda non indicata",
+            "luogo": luogo,
+            "settore": "privato",
+            "fonte": "Jooble",
+            "url": x.get("link"),
+            "pubblicato": data_iso(x.get("updated")),
+            "scadenza": None,
+            "stipendio_min": None,
+            "descrizione": pulisci(x.get("snippet"))[:2000],
+        })
+    return out
+
+
+@fonte("Careerjet")
+def fonte_careerjet():
+    if not CAREERJET_KEY:
+        return []
+    import base64
+    parametri = {"locale_code": "it_IT", "keywords": "", "location": "Genova",
+                 "page_size": 100, "sort": "date",
+                 "user_ip": "1.2.3.4", "user_agent": UA}
+    url = "https://search.api.careerjet.net/v4/query?" + urllib.parse.urlencode(parametri)
+    # l'autenticazione vuole la chiave come nome utente e password vuota
+    credenziali = base64.b64encode((CAREERJET_KEY + ":").encode()).decode()
+    j = http_json(url, headers={"Authorization": "Basic " + credenziali})
+    out = []
+    for x in j.get("jobs", []):
+        luogo = pulisci(x.get("locations"))
+        if not re.search(r"(?i)genova|genoa|liguria", luogo):
+            continue
+        out.append({
+            "id": "careerjet-" + re.sub(r"\W+", "", str(x.get("url")))[-30:],
+            "titolo": pulisci(x.get("title")),
+            "ente": pulisci(x.get("company")) or "Azienda non indicata",
+            "luogo": luogo,
+            "settore": "privato",
+            "fonte": "Careerjet",
+            "url": x.get("url"),
+            "pubblicato": data_iso(x.get("date")),
+            "scadenza": None,
+            "descrizione": pulisci(x.get("description"))[:2000],
+        })
+    return out
+
+
 @fonte("Fratelli Cosulich")
 def fonte_cosulich():
     """Gruppo armatoriale genovese, portale carriere proprio.
@@ -1489,7 +1557,7 @@ def main():
                 fonte_msc, fonte_costa, fonte_rina,
                 fonte_circle, fonte_nttdata, fonte_softjam,
                 fonte_sogegross, fonte_grendi, fonte_liguria_digitale,
-                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_cosulich, fonte_manpower, fonte_synergie, fonte_gigroup, fonte_citta_metropolitana, fonte_enti_pubblici, fonte_browser]
+                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_cosulich, fonte_manpower, fonte_synergie, fonte_gigroup, fonte_jooble, fonte_careerjet, fonte_citta_metropolitana, fonte_enti_pubblici, fonte_browser]
     grezzi = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         for res in ex.map(lambda f: f(), funzioni):

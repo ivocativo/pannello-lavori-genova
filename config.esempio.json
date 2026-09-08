@@ -47,5 +47,13 @@
    "settore pubblico (concorso)": 8,
    "commerciale e contatto cliente": 5
   }
+ },
+ "jooble": {
+  "key": "",
+  "_nota": "Chiave richiesta dal modulo su jooble.org/api/about. Endpoint: POST https://jooble.org/api/<chiave>"
+ },
+ "careerjet": {
+  "key": "",
+  "_nota": "Chiave dal publisher account careerjet.com/partners/register/as-publisher. Endpoint: https://search.api.careerjet.net/v4/query"
  }
 }
