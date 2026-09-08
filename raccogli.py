@@ -442,17 +442,36 @@ def fonte_inpa():
 
 @fonte("Formazione Lavoro Regione Liguria")
 def fonte_liguria():
-    # Dal computer di casa risponde in 3 secondi, dai server di GitHub e' molto
-    # piu' lenta e la prima chiamata va spesso in timeout: si riprova, con
-    # pagine piu' piccole a ogni tentativo.
-    # Da una connessione italiana risponde in 3 secondi; dai server di GitHub
-    # la connessione resta appesa fino al timeout, anche riprovando a lungo:
-    # con ogni probabilita' il portale scarta gli indirizzi esteri. Quindi si
-    # fa un solo tentativo breve e, se non risponde, si tira avanti senza:
-    # il pannello dira' da solo che questa fonte manca.
+    """Bacheca regionale con le offerte dei Centri per l'Impiego.
+
+    Il portale accetta solo connessioni dall'Italia: dai server di GitHub la
+    richiesta resta appesa fino al timeout (verificato anche con tre ponti
+    pubblici, tutti all'estero, tutti respinti). Quando la chiamata riesce si
+    tiene una copia; quando fallisce si usa quella, se non e' troppo vecchia.
+    Meglio qualche annuncio di dieci giorni fa che nessun annuncio: sono
+    offerte dei Centri per l'Impiego, che non passano dagli aggregatori."""
+    copia = os.path.join(QUI, "copia_liguria.json")
     url = ("https://flguest.regione.liguria.it/services/api/DomandeLavoro"
            "?dataByOption=all&idProgramma=5&pageNumber=1&pageSize=500&stato=3")
-    j = http_json(url, timeout=25)
+    dal_vivo = None
+    try:
+        dal_vivo = http_json(url, timeout=25)
+    except Exception:
+        dal_vivo = None
+
+    if dal_vivo is not None:
+        json.dump({"scaricato": OGGI.strftime("%Y-%m-%d"), "dati": dal_vivo},
+                  io.open(copia, "w", encoding="utf-8"), ensure_ascii=False)
+        j, eta = dal_vivo, 0
+    else:
+        if not os.path.exists(copia):
+            raise RuntimeError("portale irraggiungibile e nessuna copia disponibile")
+        salvato = json.load(io.open(copia, encoding="utf-8"))
+        eta = giorni_da(salvato.get("scaricato")) or 99
+        if eta > 10:
+            raise RuntimeError("portale irraggiungibile e copia vecchia di %d giorni" % eta)
+        j = salvato["dati"]
+
     out = []
     for x in j.get("items", []):
         if (x.get("provincia") or "").upper() != "GE":
@@ -465,7 +484,8 @@ def fonte_liguria():
             "ente": pulisci(x.get("azienda")) or "Azienda non indicata",
             "luogo": pulisci(x.get("comune")),
             "settore": "privato",
-            "fonte": "Regione Liguria",
+            "fonte": "Regione Liguria" + (" (copia del %s)" % salvato["scaricato"]
+                                          if dal_vivo is None else ""),
             "url": "https://flguest.regione.liguria.it/public/#/dashboard/annunci",
             "pubblicato": data_iso(x.get("createdAt")),
             "scadenza": data_iso(x.get("dataScadenza")),
