@@ -467,7 +467,10 @@ def fonte_liguria():
         if not os.path.exists(copia):
             raise RuntimeError("portale irraggiungibile e nessuna copia disponibile")
         salvato = json.load(io.open(copia, encoding="utf-8"))
-        eta = giorni_da(salvato.get("scaricato")) or 99
+        # attenzione: "or 99" qui sarebbe sbagliato, perche' una copia di
+        # oggi vale 0 giorni e in Python lo zero conta come valore mancante.
+        eta = giorni_da(salvato.get("scaricato"))
+        eta = 99 if eta is None else eta
         if eta > 10:
             raise RuntimeError("portale irraggiungibile e copia vecchia di %d giorni" % eta)
         j = salvato["dati"]
