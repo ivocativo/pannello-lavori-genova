@@ -1114,6 +1114,98 @@ def fonte_randstad():
     return out
 
 
+@fonte("Manpower")
+def fonte_manpower():
+    """Manpower, agenzia per il lavoro.
+
+    Il loro canale dati vuole un formato preciso, catturato osservando cosa
+    manda la pagina: le offerte stanno in "jobsItems", non in "data"."""
+    url = "https://www.manpower.it/api/services/Jobs/searchjobs"
+    out, visti = [], set()
+    for pagina in range(1, 4):
+        corpo = {"filter": {"page": str(pagina), "offset": (pagina - 1) * 100,
+                            "totalCount": 0, "limit": 100,
+                            "searchkeyword": "Genova", "haslocation": False,
+                            "language": "it"}}
+        try:
+            j = http_json(url, body=corpo,
+                          headers={"Referer": "https://www.manpower.it/it/trova-lavoro"})
+        except Exception:
+            break
+        elementi = j.get("jobsItems") or []
+        if not elementi:
+            break
+        for x in elementi:
+            sede = re.sub(r"\s+", " ", str(x.get("jobLocation") or "")).strip()
+            if not re.search(r"(?i)genova|genoa", sede):
+                continue
+            jid = str(x.get("jobID") or x.get("jobItemID"))
+            if jid in visti:
+                continue
+            visti.add(jid)
+            out.append({
+                "id": "manpower-" + jid,
+                "titolo": pulisci(x.get("jobTitle")),
+                "ente": "Manpower (agenzia)",
+                "luogo": sede.replace(" ,", ",")[:60],
+                "settore": "privato",
+                "fonte": "Manpower",
+                "url": "https://www.manpower.it" + (x.get("jobURL") or ""),
+                "pubblicato": data_iso(x.get("publishfromDate")),
+                "scadenza": data_iso(x.get("applicationDeadlineDate")),
+                "descrizione": pulisci(" ".join(filter(None, [
+                    x.get("jobTitle"), x.get("jobAdvertisementTeaser"),
+                    x.get("jobType"), x.get("employmentType")])))[:1500],
+            })
+    return out
+
+
+@fonte("Synergie")
+def fonte_synergie():
+    """Synergie, agenzia per il lavoro.
+
+    Il loro sito interroga un motore di ricerca esterno (Algolia); la chiave
+    di sola lettura e' pubblica, sta nella pagina."""
+    url = ("https://k8ptoxsohz-dsn.algolia.net/1/indexes/applications/query"
+           "?x-algolia-api-key=2e0bcee8011f5ad8795dd526c04d06e4"
+           "&x-algolia-application-id=K8PTOXSOHZ")
+    # niente try/except muto: se la chiamata fallisce deve vedersi nel resoconto
+    j = http_json(url, body={"query": "Genova", "hitsPerPage": 100},
+                  headers={"Referer": "https://www.synergie-italia.it/"})
+    out = []
+    for x in j.get("hits", []):
+        citta = str(x.get("city") or "")
+        provincia = str(x.get("county") or "")
+        if not re.search(r"(?i)genova|genoa", citta + " " + provincia):
+            continue
+        # attenzione: qui "archived" arriva come stringa "0"/"1", e la stringa
+        # "0" in Python conta come vera. Senza questo controllo esplicito
+        # venivano scartati tutti gli annunci come se fossero archiviati.
+        if str(x.get("archived") or "0") not in ("0", "false", "False", ""):
+            continue
+        titolo = pulisci(x.get("title") or x.get("name") or "")
+        if not titolo:
+            continue
+        slug = x.get("slug") or x.get("objectID") or ""
+        out.append({
+            "id": "synergie-" + re.sub(r"\W+", "", str(x.get("objectID") or slug))[-30:],
+            "titolo": titolo,
+            "ente": "Synergie (agenzia)",
+            "luogo": citta or "Genova",
+            "settore": "privato",
+            "fonte": "Synergie",
+            "url": ("https://www.synergie-italia.it/candidato/offerte-di-lavoro/"
+                    + str(slug) if slug else
+                    "https://www.synergie-italia.it/candidato/offerte-di-lavoro"),
+            "pubblicato": data_iso(x.get("publication_date") or x.get("created_at")),
+            "scadenza": None,
+            "descrizione": pulisci(" ".join(str(x.get(k) or "") for k in (
+                "title", "description_mission", "description_profile",
+                "contract_type", "company_name")))[:2000],
+        })
+    return out
+
+
 @fonte("Fratelli Cosulich")
 def fonte_cosulich():
     """Gruppo armatoriale genovese, portale carriere proprio.
@@ -1312,7 +1404,7 @@ def main():
                 fonte_msc, fonte_costa, fonte_rina,
                 fonte_circle, fonte_nttdata, fonte_softjam,
                 fonte_sogegross, fonte_grendi, fonte_liguria_digitale,
-                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_cosulich, fonte_enti_pubblici, fonte_browser]
+                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_cosulich, fonte_manpower, fonte_synergie, fonte_enti_pubblici, fonte_browser]
     grezzi = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         for res in ex.map(lambda f: f(), funzioni):
