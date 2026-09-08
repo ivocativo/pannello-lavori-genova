@@ -42,7 +42,6 @@ SITI = [
     ("BPER Banca",       "https://www.bper.it/lavora-con-noi", "scarta"),
     # --- grandi gruppi nazionali ---
     ("FS Italiane",      "https://fscareers.gruppofs.it/jobs.php", "scarta"),
-    ("Enel",             "https://jobs.enel.com/en_US/careers/JobOpenings", "scarta"),
     ("Terna",            "https://www.terna.it/it/carriere/lavora-con-noi", "scarta"),
     ("Snam",             "https://www.snam.it/it/carriere/", "scarta"),
     ("Eni",              "https://www.eni.com/it-IT/carriere.html", "scarta"),

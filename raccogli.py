@@ -14,6 +14,7 @@ import re
 import ssl
 import sys
 import time
+import html
 import unicodedata
 import urllib.error
 import urllib.parse
@@ -72,9 +73,9 @@ def pulisci(testo):
     t = re.sub(r"<script.*?</script>|<style.*?</style>", " ", str(testo), flags=re.S | re.I)
     t = re.sub(r"<br\s*/?>|</p>", "\n", t, flags=re.I)
     t = re.sub(r"<[^>]+>", " ", t)
-    t = (t.replace("&amp;", "&").replace("&nbsp;", " ").replace("&egrave;", "è")
-         .replace("&agrave;", "à").replace("&ograve;", "ò").replace("&#39;", "'")
-         .replace("&quot;", '"').replace("&rsquo;", "'").replace("&#x2019;", "'"))
+    # html.unescape copre tutte le entita' (&#x27; &egrave; &nbsp; ...) senza
+    # doverle elencare a mano: prima ne sfuggivano e finivano nei titoli
+    t = html.unescape(t).replace(" ", " ")
     return re.sub(r"[ \t]+", " ", t).strip()
 
 
@@ -1001,6 +1002,113 @@ def fonte_hitachi():
     return out
 
 
+@fonte("Enel")
+def fonte_enel():
+    """Enel, portale Avature.
+
+    La pagina e' servita gia' completa, ma mostra sei annunci per volta e
+    ignora la richiesta di mostrarne di piu': si scorrono le pagine. Non
+    serve rispondere all'avviso sui cookie, l'elenco c'e' comunque."""
+    base = ("https://jobs.enel.com/en_US/careers/JobOpenings/"
+            "?jobRecordsPerPage=6&jobOffset=%d")
+
+    def una_pagina(offset):
+        try:
+            return http(base % offset, timeout=45)
+        except Exception:
+            return ""
+
+    with ThreadPoolExecutor(max_workers=6) as ex:
+        pagine = list(ex.map(una_pagina, range(0, 240, 6)))
+
+    visti, out = set(), []
+    for h in pagine:
+        if not h:
+            continue
+        pezzi = re.split(r"Job ID\s*(\d+)", h)
+        for i in range(1, len(pezzi), 2):
+            jid = pezzi[i]
+            if jid in visti:
+                continue
+            visti.add(jid)
+            testo = re.sub(r"<[^>]+>", "\n", pezzi[i + 1][:2000])
+            righe = [x.strip() for x in testo.split("\n") if x.strip()]
+            if len(righe) < 2:
+                continue
+            titolo, luogo = pulisci(righe[0]), pulisci(righe[1])
+            if not re.search(r"(?i)genova|genoa|liguria", luogo):
+                continue
+            out.append({
+                "id": "enel-" + jid,
+                "titolo": titolo,
+                "ente": "Enel",
+                "luogo": luogo,
+                "settore": "privato",
+                "fonte": "Enel",
+                "url": "https://jobs.enel.com/en_US/careers/JobDetail/" + jid,
+                "pubblicato": None,
+                "scadenza": None,
+                "descrizione": " ".join(righe[:5]),
+            })
+    return out
+
+
+@fonte("Randstad")
+def fonte_randstad():
+    """Randstad, agenzia per il lavoro.
+
+    Le agenzie arrivano gia' da Adzuna, ma solo in parte: Adzuna ne mostrava
+    9 per Genova, il loro sito ne ha 148. Vale la pena leggerlo direttamente.
+    La pagina giusta e' /offerte-lavoro/re-liguria/ci-genova/, trenta annunci
+    per pagina."""
+    base = "https://www.randstad.it/offerte-lavoro/re-liguria/ci-genova/"
+
+    def una(pag):
+        try:
+            return http(base if pag == 1 else base + "page-%d/" % pag, timeout=45)
+        except Exception:
+            return ""
+
+    with ThreadPoolExecutor(max_workers=5) as ex:
+        pagine = list(ex.map(una, range(1, 8)))
+
+    out, visti = [], set()
+    for h in pagine:
+        if not h:
+            continue
+        # ogni scheda: un collegamento con la citta' e un codice nell'indirizzo,
+        # e il titolo nell'intestazione che segue
+        for m in re.finditer(
+                r'href="(/offerte-lavoro/[^"]*_[a-z]+_[0-9a-f\-]{8,}/)"(.{0,600}?)</a>',
+                h, re.S | re.I):
+            url = m.group(1)
+            if url in visti:
+                continue
+            visti.add(url)
+            tit = re.search(r"<h[1-4][^>]*>(.*?)</h[1-4]>", m.group(2), re.S | re.I)
+            titolo = pulisci(tit.group(1)) if tit else ""
+            if not titolo or len(titolo) < 4:
+                continue
+            corpo = pulisci(m.group(2))
+            comune = "Genova"
+            mc = re.search(r"_([a-z\-]+)_[0-9a-f\-]{8,}/$", url)
+            if mc:
+                comune = mc.group(1).replace("-", " ").title()
+            out.append({
+                "id": "randstad-" + re.sub(r"\W+", "", url)[-30:],
+                "titolo": titolo,
+                "ente": "Randstad (agenzia)",
+                "luogo": comune,
+                "settore": "privato",
+                "fonte": "Randstad",
+                "url": "https://www.randstad.it" + url,
+                "pubblicato": None,
+                "scadenza": None,
+                "descrizione": (titolo + " " + corpo)[:1500],
+            })
+    return out
+
+
 @fonte("Browser automatico")
 def fonte_browser():
     """Legge quello che ha raccolto raccogli_browser.py, se e' stato eseguito.
@@ -1039,7 +1147,7 @@ def main():
                 fonte_msc, fonte_costa, fonte_rina,
                 fonte_circle, fonte_nttdata, fonte_softjam,
                 fonte_sogegross, fonte_grendi, fonte_liguria_digitale,
-                fonte_poste, fonte_hitachi, fonte_browser]
+                fonte_poste, fonte_hitachi, fonte_enel, fonte_randstad, fonte_browser]
     grezzi = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         for res in ex.map(lambda f: f(), funzioni):
